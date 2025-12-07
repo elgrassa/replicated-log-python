@@ -444,3 +444,243 @@ jobs:
       if: always()
       run: |
         docker compose down -v
+
+  test-iteration3-self-check:
+    name: Iteration 3 - Self-Check Acceptance Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pytest pyyaml
+
+    - name: Install system tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jq curl bc
+
+    - name: Generate docker-compose.yml
+      run: |
+        export NUM_SECONDARIES=2
+        export SECONDARY_DELAYS="0,500"
+        python3 generate_compose.py
+        cat docker-compose.yml
+
+    - name: Build Docker images
+      run: |
+        # Retry build on transient Docker errors
+        max_retries=3
+        retry_count=0
+        while [ $retry_count -lt $max_retries ]; do
+          if docker compose build; then
+            break
+          fi
+          retry_count=$((retry_count + 1))
+          if [ $retry_count -lt $max_retries ]; then
+            echo "Build failed, retrying ($retry_count/$max_retries)..."
+            sleep 5
+          else
+            echo "Build failed after $max_retries attempts"
+            exit 1
+          fi
+        done
+
+    - name: Start services (M + S1 only)
+      run: |
+        docker compose up -d
+        sleep 3
+        docker compose stop secondary2
+        sleep 2
+        docker compose ps
+
+    - name: Wait for services to be ready
+      run: |
+        timeout=60
+        elapsed=0
+        ports="8000 8001"
+        
+        while [ $elapsed -lt $timeout ]; do
+          all_ready=true
+          for port in $ports; do
+            curl -sf http://localhost:$port/health > /dev/null || all_ready=false
+          done
+          [ "$all_ready" = true ] && break
+          sleep 2
+          elapsed=$((elapsed + 2))
+        done
+        
+        curl -s http://localhost:8000/health | jq
+        curl -s http://localhost:8001/health | jq
+        echo "✅ Master and Secondary1 are healthy"
+
+    - name: Run Iteration 3 Self-Check Acceptance Test
+      id: self_check
+      continue-on-error: true
+      run: |
+        chmod +x test_iter3_self_check_ci.sh
+        ./test_iter3_self_check_ci.sh localhost > self_check_results.txt 2>&1
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
+      env:
+        GITHUB_OUTPUT: ${{ github.output }}
+
+    - name: Collect logs
+      if: always()
+      run: |
+        echo "Collecting logs after test execution..."
+        mkdir -p Iteration_3
+        docker compose logs master > Iteration_3/replicated_log_master.txt
+        docker compose logs > Iteration_3/replicated_log_all.txt
+        docker compose logs secondary1 > Iteration_3/replicated_log_secondary1.txt
+        docker compose logs secondary2 > Iteration_3/replicated_log_secondary2.txt
+        echo ""
+        echo "Collected logs in Iteration_3/:"
+        ls -lh Iteration_3/replicated_log_*.txt
+        echo ""
+        echo "Log file sizes:"
+        du -h Iteration_3/replicated_log_*.txt
+
+    - name: Test results summary
+      if: always()
+      run: |
+        echo "## Iteration 3 Self-Check Acceptance Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Config: 2 secondaries, delays: 0,500" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Test Scenario:" >> $GITHUB_STEP_SUMMARY
+        echo "- Start M + S1" >> $GITHUB_STEP_SUMMARY
+        echo "- send (Msg1, W=1) - Ok" >> $GITHUB_STEP_SUMMARY
+        echo "- send (Msg2, W=2) - Ok" >> $GITHUB_STEP_SUMMARY
+        echo "- send (Msg3, W=3) - Wait" >> $GITHUB_STEP_SUMMARY
+        echo "- send (Msg4, W=1) - Ok" >> $GITHUB_STEP_SUMMARY
+        echo "- Start S2" >> $GITHUB_STEP_SUMMARY
+        echo "- Check messages on S2 - [Msg1, Msg2, Msg3, Msg4]" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ -f self_check_results.txt ]; then
+          echo "### Self-Check Test Results" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -50 self_check_results.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Logs uploaded as artifacts in Iteration_3/ folder: replicated_log_*.txt" >> $GITHUB_STEP_SUMMARY
+
+    - name: Upload test results and logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: iteration3-self-check-results
+        path: |
+          self_check_results.txt
+          Iteration_3/
+        retention-days: 30
+        if-no-files-found: warn
+        compression-level: 6
+
+    - name: Check test results
+      run: |
+        failed=0
+        
+        # Check exit code from test step
+        if [ "${{ steps.self_check.outputs.exit_code }}" != "0" ] && [ "${{ steps.self_check.outputs.exit_code }}" != "" ]; then
+          echo "Self-check test failed (exit code: ${{ steps.self_check.outputs.exit_code }})"
+          failed=1
+        fi
+        
+        # Check for critical failure patterns in output
+        if [ -f self_check_results.txt ]; then
+          if grep -qiE "(FAIL|exit code [1-9]|not healthy)" self_check_results.txt; then
+            echo "Self-check test failed (found critical failure indicators)"
+            failed=1
+          fi
+          
+          # Verify all steps passed
+          if ! grep -q "Step 6 PASS: S2 has all messages in correct order" self_check_results.txt; then
+            echo "Self-check test failed (Step 6 did not pass)"
+            failed=1
+          fi
+        fi
+        
+        # Verify replication in secondary2 logs
+        echo ""
+        echo "Verifying replication in secondary2 logs..."
+        if [ -f Iteration_3/replicated_log_secondary2.txt ]; then
+          replications=$(grep "Replicated seq=" Iteration_3/replicated_log_secondary2.txt | grep -E "msg=(Msg1|Msg2|Msg3|Msg4)")
+          for pattern in "seq=1 msg=Msg1 (pos=0)" "seq=2 msg=Msg2 (pos=1)" "seq=3 msg=Msg3 (pos=2)" "seq=4 msg=Msg4 (pos=3)"; do
+            if ! echo "$replications" | grep -q "$pattern"; then
+              echo "❌ Missing: Replicated $pattern"
+              failed=1
+            fi
+          done
+          [ $failed -eq 0 ] && echo "✅ All 4 messages replicated to S2: $replications"
+        else
+          echo "⚠️  Secondary2 log file not found"
+          failed=1
+        fi
+        
+        # Verify message order on S2 via GET /messages
+        echo ""
+        echo "Verifying message order on S2 via GET /messages..."
+        if curl -sf http://localhost:8002/health >/dev/null 2>&1; then
+          # Wait a bit for any final replication
+          sleep 2
+          
+          # Get messages from S2
+          s2_response=$(curl -s http://localhost:8002/messages)
+          s2_messages=$(echo "$s2_response" | jq -c '.messages')
+          
+          echo "S2 messages: $s2_messages"
+          
+          # Extract test messages in order
+          test_msgs=$(echo "$s2_messages" | jq '[.[] | select(. == "Msg1" or . == "Msg2" or . == "Msg3" or . == "Msg4")]')
+          expected_order='["Msg1","Msg2","Msg3","Msg4"]'
+          actual_order=$(echo "$test_msgs" | jq -c .)
+          
+          echo "Test messages extracted: $test_msgs"
+          echo "Expected order: $expected_order"
+          echo "Actual order:   $actual_order"
+          
+          if [ "$actual_order" == "$expected_order" ]; then
+            echo "✅ Message order verified: S2 has [Msg1, Msg2, Msg3, Msg4] in correct order"
+          else
+            echo "❌ Message order mismatch on S2"
+            echo "   Expected: $expected_order"
+            echo "   Got:      $actual_order"
+            failed=1
+          fi
+          
+          # Also verify count
+          count=$(echo "$test_msgs" | jq 'length')
+          if [ "$count" -ne 4 ]; then
+            echo "❌ Expected 4 messages on S2, found $count"
+            failed=1
+          fi
+        else
+          echo "⚠️  Secondary2 not accessible for message order verification"
+          failed=1
+        fi
+        
+        if [ $failed -eq 1 ]; then
+          echo ""
+          echo "Iteration 3 self-check test failed - check artifacts for logs"
+          exit 1
+        fi
+        
+        echo ""
+        echo "✅ Iteration 3 self-check acceptance test PASSED"
+        echo "✅ All messages replicated to secondary2 in correct order"
+        echo "✅ Message order verified on S2: [Msg1, Msg2, Msg3, Msg4]"
+
+    - name: Cleanup
+      if: always()
+      run: |
+        docker compose down -v
