@@ -38,6 +38,12 @@ for i in range(1, NUM_SECONDARIES + 1):
       - LOG_LEVEL=INFO
     ports:
       - "{host_port}:8001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 """)
 
 # Generate docker-compose.yml
@@ -54,6 +60,12 @@ compose_content = f"""services:
       - "{MASTER_PORT}:{MASTER_PORT}"
     depends_on:
 {chr(10).join(depends_on)}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:{MASTER_PORT}/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
 {chr(10).join(services)}"""
 

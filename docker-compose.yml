@@ -12,6 +12,12 @@ services:
     depends_on:
       - secondary1
       - secondary2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
   secondary1:
     build: ./secondary
@@ -22,6 +28,12 @@ services:
       - LOG_LEVEL=INFO
     ports:
       - "8001:8001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
   secondary2:
     build: ./secondary
@@ -32,3 +44,9 @@ services:
       - LOG_LEVEL=INFO
     ports:
       - "8002:8001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
