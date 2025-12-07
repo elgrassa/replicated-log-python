@@ -1,7 +1,8 @@
 import os
 import time
 import logging
-from typing import List
+import threading
+from typing import List, Tuple
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -14,11 +15,14 @@ logger = logging.getLogger("secondary")
 PORT = int(os.environ.get("PORT", "8001"))
 DELAY_MS = int(os.environ.get("DELAY_MS", "0"))
 
-MESSAGES: List[str] = []
+# Messages with sequence numbers for ordering and deduplication
+MESSAGES: List[Tuple[int, str]] = []
+MESSAGES_LOCK = threading.Lock()
 
 @app.get("/messages")
 def list_messages():
-    return jsonify({"messages": MESSAGES})
+    msg_list = [msg for _, msg in sorted(MESSAGES, key=lambda x: x[0])]
+    return jsonify({"messages": msg_list})
 
 @app.post("/replicate")
 def replicate():
@@ -27,14 +31,30 @@ def replicate():
     if not isinstance(msg, str):
         return jsonify({"error": "Expected JSON with string field 'msg'"}), 400
 
+    seq = data.get("seq", 0)
+    
     if DELAY_MS > 0:
         logger.info("Simulating delay %d ms", DELAY_MS)
         time.sleep(DELAY_MS / 1000.0)
 
-    MESSAGES.append(msg)
-    idx = len(MESSAGES) - 1
-    logger.info("Replicated idx=%s msg=%s", idx, msg)
-    return jsonify({"status": "ok", "idx": idx})
+    # Atomic check-and-insert to prevent race conditions
+    with MESSAGES_LOCK:
+        # Check for duplicate sequence number (retry handling)
+        if any(seq_num == seq for seq_num, _ in MESSAGES):
+            logger.info("Duplicate seq %d detected, skipping replication", seq)
+            return jsonify({"status": "ok", "idx": -1, "duplicate": True})
+        
+        # Insert in sequence order to maintain total ordering
+        insert_pos = 0
+        for i, (seq_num, _) in enumerate(MESSAGES):
+            if seq_num < seq:
+                insert_pos = i + 1
+            else:
+                break
+        
+        MESSAGES.insert(insert_pos, (seq, msg))
+        logger.info("Replicated seq=%d msg=%s (pos=%d)", seq, msg, insert_pos)
+        return jsonify({"status": "ok", "idx": insert_pos, "seq": seq})
 
 @app.get("/health")
 def health():

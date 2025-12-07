@@ -13,4 +13,10 @@ smoke:
 test:
 	./run_all_tests.sh
 
+test-iter2:
+	./test_iteration2.sh
+
+test-iter2-concurrent:
+	python3 test_iteration2_concurrent.py
+
 

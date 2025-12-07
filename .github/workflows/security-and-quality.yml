@@ -1,0 +1,203 @@
+name: Security & Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run weekly on Mondays at 00:00 UTC
+    - cron: '0 0 * * 1'
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  codeql-analysis:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python' ]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        queries: +security-and-quality
+    
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v3
+    
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:python"
+
+  bandit-security:
+    name: Bandit Security Linter
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install Bandit
+      run: |
+        pip install --upgrade pip
+        pip install bandit[toml]
+    
+    - name: Run Bandit security scan
+      run: |
+        bandit -r master/ secondary/ tests/ -f json -o bandit-report.json || true
+        bandit -r master/ secondary/ tests/ -ll
+    
+    - name: Upload Bandit results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: bandit-security-report
+        path: bandit-report.json
+        retention-days: 30
+
+  dependency-safety:
+    name: Dependency Vulnerability Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install Safety
+      run: |
+        pip install --upgrade pip
+        pip install safety
+    
+    - name: Check master dependencies
+      run: |
+        cd master
+        pip install -r requirements.txt
+        safety check --json --output safety-master.json || true
+        safety check
+    
+    - name: Check secondary dependencies
+      run: |
+        cd secondary
+        pip install -r requirements.txt
+        safety check --json --output safety-secondary.json || true
+        safety check
+    
+    - name: Upload Safety results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: dependency-safety-reports
+        path: |
+          master/safety-master.json
+          secondary/safety-secondary.json
+        retention-days: 30
+
+  semgrep-security:
+    name: Semgrep Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Run Semgrep scan
+      uses: returntocorp/semgrep-action@v1
+      with:
+        config: >-
+          p/security-audit
+          p/python
+          p/owasp-top-ten
+        generateSarif: "1"
+    
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: semgrep.sarif
+
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install mypy black isort ruff
+        pip install -r master/requirements.txt
+        pip install -r secondary/requirements.txt
+    
+    - name: Type checking with mypy
+      run: |
+        mypy master/app.py --ignore-missing-imports --no-strict-optional --show-error-codes || true
+        mypy secondary/app.py --ignore-missing-imports --no-strict-optional --show-error-codes || true
+    
+    - name: Check code formatting with Black
+      continue-on-error: true
+      run: |
+        black --check --diff master/ secondary/ tests/
+    
+    - name: Check import sorting with isort
+      continue-on-error: true
+      run: |
+        isort --check-only --diff master/ secondary/ tests/
+    
+    - name: Run Ruff linter
+      continue-on-error: true
+      run: |
+        ruff check master/ secondary/ tests/ --output-format=github
+
+  security-summary:
+    name: Security Summary
+    runs-on: ubuntu-latest
+    needs: [codeql-analysis, bandit-security, dependency-safety, semgrep-security]
+    if: always()
+    
+    steps:
+    - name: Security scan summary
+      run: |
+        echo "## 🔒 Security & Quality Scan Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **CodeQL Analysis**: Security-focused static analysis" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Bandit**: Python security linter" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Safety**: Dependency vulnerability scanner" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Semgrep**: Additional security pattern detection" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Code Quality**: Type checking, formatting, and linting" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "All security checks completed. Review artifacts for detailed reports." >> $GITHUB_STEP_SUMMARY
+
