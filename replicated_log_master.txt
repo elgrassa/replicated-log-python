@@ -1,0 +1,46 @@
+rl-master  |  * Serving Flask app 'app'
+rl-master  |  * Debug mode: off
+rl-master  | 2025-12-07 17:22:36,643 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-master  |  * Running on all addresses (0.0.0.0)
+rl-master  |  * Running on http://127.0.0.1:8000
+rl-master  |  * Running on http://172.18.0.4:8000
+rl-master  | 2025-12-07 17:22:36,643 | INFO | [33mPress CTRL+C to quit[0m
+rl-master  | 2025-12-07 17:22:49,932 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:49] "GET /health HTTP/1.1" 200 -
+rl-master  | 2025-12-07 17:22:53,921 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:53] "GET /health HTTP/1.1" 200 -
+rl-master  | 2025-12-07 17:22:53,928 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:53] "GET /health HTTP/1.1" 200 -
+rl-master  | 2025-12-07 17:22:53,969 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:53] "GET /messages HTTP/1.1" 200 -
+rl-master  | 2025-12-07 17:22:53,982 | INFO | Appended locally idx=0 msg=test message 1
+rl-master  | 2025-12-07 17:22:53,985 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 17:22:55,495 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 17:22:55,495 | INFO | POST /messages completed with 2 acks in 1513 ms
+rl-master  | 2025-12-07 17:22:55,496 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:55] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 17:22:55,517 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:55] "GET /messages HTTP/1.1" 200 -
+rl-master  | 2025-12-07 17:22:55,553 | INFO | Appended locally idx=1 msg=blocking test
+rl-master  | 2025-12-07 17:22:55,557 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 17:22:57,067 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 17:22:57,067 | INFO | POST /messages completed with 2 acks in 1514 ms
+rl-master  | 2025-12-07 17:22:57,068 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:57] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 17:22:57,103 | INFO | Appended locally idx=2 msg=message 2
+rl-master  | 2025-12-07 17:22:57,107 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 17:22:58,616 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 17:22:58,617 | INFO | POST /messages completed with 2 acks in 1513 ms
+rl-master  | 2025-12-07 17:22:58,617 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:58] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 17:22:58,948 | INFO | Appended locally idx=3 msg=message 3
+rl-master  | 2025-12-07 17:22:58,952 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 17:23:00,459 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 17:23:00,459 | INFO | POST /messages completed with 2 acks in 1511 ms
+rl-master  | 2025-12-07 17:23:00,460 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:00] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 17:23:00,791 | INFO | Appended locally idx=4 msg=message 4
+rl-master  | 2025-12-07 17:23:00,795 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 17:23:02,306 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 17:23:02,306 | INFO | POST /messages completed with 2 acks in 1515 ms
+rl-master  | 2025-12-07 17:23:02,307 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:02] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 17:23:02,644 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:02] "GET /messages HTTP/1.1" 200 -
+rl-master  | 2025-12-07 17:23:02,685 | INFO | Appended locally idx=5 msg=delay test
+rl-master  | 2025-12-07 17:23:02,689 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 17:23:04,197 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 17:23:04,197 | INFO | POST /messages completed with 2 acks in 1512 ms
+rl-master  | 2025-12-07 17:23:04,198 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:04] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 17:23:04,239 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:04] "[31m[1mPOST /messages HTTP/1.1[0m" 400 -
+rl-master  | 2025-12-07 17:23:04,256 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:04] "[31m[1mPOST /messages HTTP/1.1[0m" 400 -
+rl-master  | 2025-12-07 17:23:04,466 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:04] "GET /messages HTTP/1.1" 200 -

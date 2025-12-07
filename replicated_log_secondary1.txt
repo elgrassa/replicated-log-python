@@ -1,0 +1,25 @@
+rl-secondary-1  |  * Serving Flask app 'app'
+rl-secondary-1  |  * Debug mode: off
+rl-secondary-1  | 2025-12-07 17:22:36,555 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-1  |  * Running on all addresses (0.0.0.0)
+rl-secondary-1  |  * Running on http://127.0.0.1:8001
+rl-secondary-1  |  * Running on http://172.18.0.2:8001
+rl-secondary-1  | 2025-12-07 17:22:36,556 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-1  | 2025-12-07 17:22:49,941 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:49] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:22:53,937 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:53] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:22:53,945 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:53] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:22:53,984 | INFO | Replicated idx=0 msg=test message 1
+rl-secondary-1  | 2025-12-07 17:22:53,984 | INFO | 172.18.0.4 - - [07/Dec/2025 17:22:53] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:22:55,530 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:55] "GET /messages HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:22:55,556 | INFO | Replicated idx=1 msg=blocking test
+rl-secondary-1  | 2025-12-07 17:22:55,556 | INFO | 172.18.0.4 - - [07/Dec/2025 17:22:55] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:22:57,106 | INFO | Replicated idx=2 msg=message 2
+rl-secondary-1  | 2025-12-07 17:22:57,106 | INFO | 172.18.0.4 - - [07/Dec/2025 17:22:57] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:22:58,951 | INFO | Replicated idx=3 msg=message 3
+rl-secondary-1  | 2025-12-07 17:22:58,951 | INFO | 172.18.0.4 - - [07/Dec/2025 17:22:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:23:00,794 | INFO | Replicated idx=4 msg=message 4
+rl-secondary-1  | 2025-12-07 17:23:00,794 | INFO | 172.18.0.4 - - [07/Dec/2025 17:23:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:23:02,658 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:02] "GET /messages HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:23:02,688 | INFO | Replicated idx=5 msg=delay test
+rl-secondary-1  | 2025-12-07 17:23:02,689 | INFO | 172.18.0.4 - - [07/Dec/2025 17:23:02] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 17:23:04,475 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:04] "GET /messages HTTP/1.1" 200 -

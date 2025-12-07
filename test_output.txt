@@ -1,0 +1,137 @@
+Testing with 2 secondary node(s) on ports: 8001 8002
+
+Step 1: Verify Docker containers
+NAME             IMAGE                              COMMAND           SERVICE      CREATED          STATUS          PORTS
+rl-master        replicated-log-python-master       "python app.py"   master       17 seconds ago   Up 17 seconds   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+rl-secondary-1   replicated-log-python-secondary1   "python app.py"   secondary1   17 seconds ago   Up 17 seconds   0.0.0.0:8001->8001/tcp, [::]:8001->8001/tcp
+rl-secondary-2   replicated-log-python-secondary2   "python app.py"   secondary2   17 seconds ago   Up 17 seconds   0.0.0.0:8002->8001/tcp, [::]:8002->8001/tcp
+
+Step 2: Health checks
+Master health:
+{
+  "count": 0,
+  "secondaries": [
+    "http://secondary1:8001",
+    "http://secondary2:8001"
+  ],
+  "status": "ok"
+}
+
+Secondary 1 (port 8001) health:
+{
+  "count": 0,
+  "delay_ms": 0,
+  "status": "ok"
+}
+
+Secondary 2 (port 8002) health:
+{
+  "count": 0,
+  "delay_ms": 1500,
+  "status": "ok"
+}
+
+Step 3: Master GET /messages (should be empty)
+{
+  "messages": []
+}
+✓ Empty list confirmed
+
+Step 4: Master POST /messages - First message
+{
+  "messages": [
+    "test message 1"
+  ],
+  "acks_count": 2,
+  "duration_ms": 1513
+}
+
+Step 5: Verify replication to all secondaries
+Master messages:
+[
+  "test message 1"
+]
+
+Secondary 1 (port 8001) messages:
+[
+  "test message 1"
+]
+
+Secondary 2 (port 8002) messages:
+[
+  "test message 1"
+]
+
+Step 6: Test blocking replication (ACK requirement)
+Response with ACKs:
+{
+  "acks": [
+    {
+      "ack": "ok",
+      "secondary": "http://secondary1:8001"
+    },
+    {
+      "ack": "ok",
+      "secondary": "http://secondary2:8001"
+    }
+  ],
+  "duration_ms": 1514
+}
+✓ ACK count matches number of secondaries (2)
+
+Step 7: Test multiple POSTs (replication after each)
+Posting message 2...
+{
+  "message": "message 2",
+  "duration_ms": 1513,
+  "acks_count": 2
+}
+Posting message 3...
+{
+  "message": "message 3",
+  "duration_ms": 1511,
+  "acks_count": 2
+}
+Posting message 4...
+{
+  "message": "message 4",
+  "duration_ms": 1515,
+  "acks_count": 2
+}
+
+Step 8: Consistency check after multiple messages
+Master: ["test message 1","blocking test","message 2","message 3","message 4"]
+
+Secondary 1 (port 8001): ["test message 1","blocking test","message 2","message 3","message 4"]
+Secondary 2 (port 8002): ["test message 1","blocking test","message 2","message 3","message 4"]
+
+✓ All nodes consistent
+
+Step 9: Test blocking behavior with delay
+Posting message and measuring time (should reflect slowest secondary delay)...
+Response duration_ms: 1512ms
+Real elapsed time: 1.535s
+
+Step 10: Test error handling
+Test 1: Invalid JSON payload (missing 'msg' field)
+HTTP/1.1 400 BAD REQUEST
+✓ HTTP 400 returned for invalid payload
+
+Test 2: Malformed JSON
+HTTP/1.1 400 BAD REQUEST
+✓ HTTP 400 returned for malformed JSON
+
+Step 11: Test Docker container isolation
+Testing health from inside containers...
+✗ Master container health failed
+✗ Secondary 1 container health failed
+✗ Secondary 2 container health failed
+
+Step 12: Final verification
+Master: 6 messages
+Secondary 1 (port 8001): 6 messages
+Secondary 2 (port 8002): 6 messages
+
+✅ All nodes consistent with 6 messages
+
+Test sequence complete. Logs will be collected by workflow.

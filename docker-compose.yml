@@ -28,7 +28,7 @@ services:
     container_name: rl-secondary-2
     environment:
       - PORT=8001
-      - DELAY_MS=1500
+      - DELAY_MS=3000
       - LOG_LEVEL=INFO
     ports:
       - "8002:8001"

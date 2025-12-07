@@ -1,0 +1,31 @@
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 17:22:36,567 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.3:8001
+rl-secondary-2  | 2025-12-07 17:22:36,567 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 17:22:49,950 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:49] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:22:53,953 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:53] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:22:53,962 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:53] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:22:53,986 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 17:22:55,491 | INFO | Replicated idx=0 msg=test message 1
+rl-secondary-2  | 2025-12-07 17:22:55,493 | INFO | 172.18.0.4 - - [07/Dec/2025 17:22:55] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:22:55,542 | INFO | 192.168.65.1 - - [07/Dec/2025 17:22:55] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:22:55,559 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 17:22:57,064 | INFO | Replicated idx=1 msg=blocking test
+rl-secondary-2  | 2025-12-07 17:22:57,065 | INFO | 172.18.0.4 - - [07/Dec/2025 17:22:57] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:22:57,108 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 17:22:58,612 | INFO | Replicated idx=2 msg=message 2
+rl-secondary-2  | 2025-12-07 17:22:58,614 | INFO | 172.18.0.4 - - [07/Dec/2025 17:22:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:22:58,954 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 17:23:00,456 | INFO | Replicated idx=3 msg=message 3
+rl-secondary-2  | 2025-12-07 17:23:00,457 | INFO | 172.18.0.4 - - [07/Dec/2025 17:23:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:23:00,798 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 17:23:02,302 | INFO | Replicated idx=4 msg=message 4
+rl-secondary-2  | 2025-12-07 17:23:02,303 | INFO | 172.18.0.4 - - [07/Dec/2025 17:23:02] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:23:02,671 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:02] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:23:02,691 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 17:23:04,194 | INFO | Replicated idx=5 msg=delay test
+rl-secondary-2  | 2025-12-07 17:23:04,195 | INFO | 172.18.0.4 - - [07/Dec/2025 17:23:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 17:23:04,484 | INFO | 192.168.65.1 - - [07/Dec/2025 17:23:04] "GET /messages HTTP/1.1" 200 -

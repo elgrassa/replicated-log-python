@@ -1,0 +1,47 @@
+rl-master  |  * Serving Flask app 'app'
+rl-master  |  * Debug mode: off
+rl-master  | 2025-12-07 16:24:30,146 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-master  |  * Running on all addresses (0.0.0.0)
+rl-master  |  * Running on http://127.0.0.1:8000
+rl-master  |  * Running on http://172.18.0.4:8000
+rl-master  | 2025-12-07 16:24:30,146 | INFO | [33mPress CTRL+C to quit[0m
+rl-master  | 2025-12-07 16:32:25,493 | INFO | 172.18.0.1 - - [07/Dec/2025 16:32:25] "GET /health HTTP/1.1" 200 -
+rl-master  | 2025-12-07 16:34:38,035 | INFO | 172.18.0.1 - - [07/Dec/2025 16:34:38] "GET /messages HTTP/1.1" 200 -
+rl-master  | 2025-12-07 16:34:50,127 | INFO | 172.18.0.1 - - [07/Dec/2025 16:34:50] "GET /messages HTTP/1.1" 200 -
+rl-master  | 2025-12-07 16:35:02,467 | INFO | Appended locally idx=0 msg=test message 1
+rl-master  | 2025-12-07 16:35:02,471 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 16:35:03,983 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 16:35:03,983 | INFO | POST /messages completed with 2 acks in 1515 ms
+rl-master  | 2025-12-07 16:35:03,983 | INFO | 172.18.0.1 - - [07/Dec/2025 16:35:03] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 16:35:12,475 | INFO | 172.18.0.1 - - [07/Dec/2025 16:35:12] "GET /messages HTTP/1.1" 200 -
+rl-master  | 2025-12-07 16:38:27,374 | INFO | Appended locally idx=1 msg=blocking test
+rl-master  | 2025-12-07 16:38:27,377 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 16:38:28,884 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 16:38:28,884 | INFO | POST /messages completed with 2 acks in 1509 ms
+rl-master  | 2025-12-07 16:38:28,885 | INFO | 172.18.0.1 - - [07/Dec/2025 16:38:28] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 16:38:59,374 | INFO | Appended locally idx=2 msg=blocking test
+rl-master  | 2025-12-07 16:38:59,376 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 16:39:00,886 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 16:39:00,886 | INFO | POST /messages completed with 2 acks in 1512 ms
+rl-master  | 2025-12-07 16:39:00,887 | INFO | 172.18.0.1 - - [07/Dec/2025 16:39:00] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 16:39:32,044 | INFO | Appended locally idx=3 msg=message 1
+rl-master  | 2025-12-07 16:39:32,048 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 16:39:33,552 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 16:39:33,552 | INFO | POST /messages completed with 2 acks in 1507 ms
+rl-master  | 2025-12-07 16:39:33,552 | INFO | 172.18.0.1 - - [07/Dec/2025 16:39:33] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 16:39:44,546 | INFO | Appended locally idx=4 msg=message 2
+rl-master  | 2025-12-07 16:39:44,549 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 16:39:46,061 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 16:39:46,061 | INFO | POST /messages completed with 2 acks in 1515 ms
+rl-master  | 2025-12-07 16:39:46,062 | INFO | 172.18.0.1 - - [07/Dec/2025 16:39:46] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 16:39:53,880 | INFO | Appended locally idx=5 msg=message 3
+rl-master  | 2025-12-07 16:39:53,883 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 16:39:55,389 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 16:39:55,390 | INFO | POST /messages completed with 2 acks in 1509 ms
+rl-master  | 2025-12-07 16:39:55,390 | INFO | 172.18.0.1 - - [07/Dec/2025 16:39:55] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master  | 2025-12-07 16:40:08,007 | INFO | 172.18.0.1 - - [07/Dec/2025 16:40:08] "GET /messages HTTP/1.1" 200 -
+rl-master  | 2025-12-07 16:40:56,841 | INFO | Appended locally idx=6 msg=with delay
+rl-master  | 2025-12-07 16:40:56,844 | INFO | Replicated to http://secondary1:8001 ok
+rl-master  | 2025-12-07 16:40:58,350 | INFO | Replicated to http://secondary2:8001 ok
+rl-master  | 2025-12-07 16:40:58,350 | INFO | POST /messages completed with 2 acks in 1509 ms
+rl-master  | 2025-12-07 16:40:58,351 | INFO | 172.18.0.1 - - [07/Dec/2025 16:40:58] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -

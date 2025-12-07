@@ -1,0 +1,222 @@
+# Test workflow for replicated log system
+# Tests with 2 and 5 secondaries using matrix strategy
+# Collects logs and uploads as artifacts
+
+name: Test Replicated Log System
+
+on:
+  push:
+    # Run on all branches
+  pull_request:
+    # Run on all pull requests
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test with ${{ matrix.num_secondaries }} Secondary Nodes
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        num_secondaries: [2, 5]
+        include:
+          - num_secondaries: 2
+            secondary_delays: "0,1500"
+          - num_secondaries: 5
+            secondary_delays: "0,100,500,1000,2000"
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pytest flake8 pyyaml
+
+    - name: Install system tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jq curl bc
+
+    - name: Run Python linter
+      id: lint
+      continue-on-error: true
+      run: |
+        flake8 master/app.py secondary/app.py generate_compose.py tests/smoke_test.py \
+          --max-line-length=120 \
+          --ignore=E501,W503,E203 \
+          --exclude=__pycache__,*.pyc > lint_results.txt 2>&1 || true
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+    - name: Generate docker-compose.yml
+      run: |
+        export NUM_SECONDARIES=${{ matrix.num_secondaries }}
+        export SECONDARY_DELAYS="${{ matrix.secondary_delays }}"
+        python3 generate_compose.py
+        cat docker-compose.yml
+
+    - name: Build Docker images
+      run: |
+        docker compose build
+
+    - name: Start services
+      run: |
+        docker compose up -d
+        sleep 5
+        docker compose ps
+
+    - name: Wait for services to be ready
+      run: |
+        timeout=60
+        elapsed=0
+        ports="8000"
+        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
+          ports="$ports $((8000 + i))"
+        done
+        
+        while [ $elapsed -lt $timeout ]; do
+          all_ready=true
+          for port in $ports; do
+            curl -sf http://localhost:$port/health > /dev/null || all_ready=false
+          done
+          [ "$all_ready" = true ] && break
+          sleep 2
+          elapsed=$((elapsed + 2))
+        done
+        
+        curl -s http://localhost:8000/health | jq
+        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
+          curl -s http://localhost:$((8000 + i))/health | jq
+        done
+
+    - name: Run verification script
+      id: verify
+      continue-on-error: true
+      run: |
+        chmod +x scripts/verify.sh
+        ./scripts/verify.sh > verify_results.txt 2>&1
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
+      env:
+        GITHUB_OUTPUT: ${{ github.output }}
+
+    - name: Run comprehensive test script
+      id: test
+      continue-on-error: true
+      run: |
+        chmod +x test_and_log.sh
+        ./test_and_log.sh > test_results.txt 2>&1
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+    - name: Run Python smoke tests
+      id: pytest
+      continue-on-error: true
+      run: |
+        pip install requests pytest
+        pytest -v tests/smoke_test.py > pytest_results.txt 2>&1 || true
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+    - name: Collect logs
+      if: always()
+      run: |
+        docker compose logs master > replicated_log_master.txt
+        docker compose logs > replicated_log_all.txt
+        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
+          docker compose logs secondary$i > replicated_log_secondary$i.txt
+        done
+        echo "Collected logs:"
+        ls -lh replicated_log_*.txt
+
+    - name: Test results summary
+      if: always()
+      run: |
+        echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Config: ${{ matrix.num_secondaries }} secondaries, delays: ${{ matrix.secondary_delays }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ -f verify_results.txt ]; then
+          echo "### Verification" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -15 verify_results.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ -f test_results.txt ]; then
+          echo "### Test Script" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -20 test_results.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ -f pytest_results.txt ]; then
+          echo "### Pytest" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat pytest_results.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ -f lint_results.txt ] && [ -s lint_results.txt ]; then
+          echo "### Linter" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat lint_results.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Logs uploaded as artifacts: replicated_log_*.txt" >> $GITHUB_STEP_SUMMARY
+
+    - name: Upload test results and logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-and-logs-${{ matrix.num_secondaries }}-nodes
+        path: |
+          verify_results.txt
+          test_results.txt
+          pytest_results.txt
+          lint_results.txt
+          replicated_log_master.txt
+          replicated_log_all.txt
+          replicated_log_secondary*.txt
+        retention-days: 30
+        if-no-files-found: warn
+        compression-level: 6
+
+    - name: Check test results
+      run: |
+        failed=0
+        
+        if [ -f lint_results.txt ] && [ -s lint_results.txt ]; then
+          echo "Linter issues found (non-blocking)"
+        fi
+        
+        if [ -f verify_results.txt ] && ! grep -q "Consistent ✅" verify_results.txt; then
+          echo "Verification failed"
+          failed=1
+        fi
+        
+        if [ -f test_results.txt ] && ! grep -q "✅ All nodes consistent!" test_results.txt; then
+          echo "Test script failed"
+          failed=1
+        fi
+        
+        if [ -f pytest_results.txt ] && grep -q "FAILED\|ERROR" pytest_results.txt; then
+          echo "Pytest failed"
+          failed=1
+        fi
+        
+        if [ $failed -eq 1 ]; then
+          echo "Tests failed - check artifacts for logs"
+          exit 1
+        fi
+
+    - name: Cleanup
+      if: always()
+      run: |
+        docker compose down -v
+
