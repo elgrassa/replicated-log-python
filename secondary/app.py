@@ -2,6 +2,7 @@ import os
 import time
 import logging
 import threading
+import random
 from typing import List, Tuple
 from flask import Flask, request, jsonify
 
@@ -22,8 +23,21 @@ MESSAGES_LOCK = threading.Lock()
 
 @app.get("/messages")
 def list_messages():
-    msg_list = [msg for _, msg in sorted(MESSAGES, key=lambda x: x[0])]
-    return jsonify({"messages": msg_list})
+    with MESSAGES_LOCK:
+        ordered = sorted(MESSAGES, key=lambda x: x[0])
+        visible = []
+        if ordered:
+            expected = ordered[0][0]
+            for seq, msg in ordered:
+                if seq == expected:
+                    visible.append(msg)
+                    expected += 1
+                elif seq > expected:
+                    logger.info("Gap detected: hiding seq=%d until seq=%d arrives", seq, expected)
+                    break
+                else:
+                    continue
+    return jsonify({"messages": visible})
 
 @app.post("/replicate")
 def replicate():
@@ -55,7 +69,12 @@ def replicate():
 
         MESSAGES.insert(insert_pos, (seq, msg))
         logger.info("Replicated seq=%d msg=%s (pos=%d)", seq, msg, insert_pos)
-        return jsonify({"status": "ok", "idx": insert_pos, "seq": seq})
+
+    # Randomly simulate internal error after storing (for retry & dedup tests)
+    if random.random() < 0.2:
+        return jsonify({"error": "simulated internal error", "seq": seq}), 500
+
+    return jsonify({"status": "ok", "seq": seq})
 
 
 @app.get("/health")

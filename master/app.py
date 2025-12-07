@@ -4,9 +4,10 @@ import logging
 import threading
 from typing import List, Tuple, Dict
 from enum import Enum
+from collections import defaultdict
+from dataclasses import dataclass, field
 from flask import Flask, request, jsonify
 import requests
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 app = Flask(__name__)
 
@@ -23,6 +24,23 @@ SECONDARIES = [u.strip() for u in os.environ.get("SECONDARIES", "").split(",") i
 
 HOST = os.environ.get("HOST", "0.0.0.0")  # nosec B104 - Dockerized app needs to bind to all interfaces
 PORT = int(os.environ.get("PORT", "8000"))
+
+# Replication queues per secondary
+REPLICATION_QUEUES: Dict[str, List[Tuple[int, str]]] = {sec: [] for sec in SECONDARIES}
+REPLICATION_LOCK = threading.Lock()
+
+# Track last delivered seq per secondary
+DELIVERED_SEQ: Dict[str, int] = defaultdict(int)
+
+# Write concern tracking
+@dataclass
+class AckTracker:
+    required_acks: int
+    acked_by: set = field(default_factory=set)
+    event: threading.Event = field(default_factory=threading.Event)
+
+ACK_TRACKERS: Dict[int, AckTracker] = {}
+ACK_LOCK = threading.Lock()
 
 
 class SecondaryStatus(Enum):
@@ -50,6 +68,7 @@ def init_secondary_statuses():
                     "failures": 0,
                     "last_success": time.time()
                 }
+                logger.info("Heartbeat: %s initialized as healthy", sec_url)
 
 
 def check_secondary_health(sec_url: str) -> bool:
@@ -71,17 +90,23 @@ def update_secondary_status(sec_url: str, is_healthy: bool):
                 "failures": 0,
                 "last_success": time.time()
             }
+            logger.info("Heartbeat: %s initialized as healthy", sec_url)
 
         status_info = SECONDARY_STATUS[sec_url]
         status_info["last_heartbeat"] = time.time()
 
         if is_healthy:
-            old_failures = status_info["failures"]
+            old_status = status_info["status"]
             status_info["failures"] = 0
             status_info["last_success"] = time.time()
             
-            if status_info["status"] != SecondaryStatus.HEALTHY:
-                logger.info("Heartbeat OK for %s, recovered from %s", sec_url, status_info["status"].value)
+            if old_status != SecondaryStatus.HEALTHY:
+                if old_status == SecondaryStatus.UNHEALTHY:
+                    logger.info("Heartbeat OK for %s: unhealthy -> healthy (recovered)", sec_url)
+                elif old_status == SecondaryStatus.SUSPECTED:
+                    logger.info("Heartbeat OK for %s: suspected -> healthy", sec_url)
+                else:
+                    logger.info("Heartbeat OK for %s: %s -> healthy", sec_url, old_status.value)
                 status_info["status"] = SecondaryStatus.HEALTHY
         else:
             status_info["failures"] += 1
@@ -91,21 +116,14 @@ def update_secondary_status(sec_url: str, is_healthy: bool):
             if old_status == SecondaryStatus.HEALTHY:
                 if failures >= SUSPECT_THRESH:
                     status_info["status"] = SecondaryStatus.SUSPECTED
-                    logger.warning("Heartbeat failed for %s (%d failures) - marking as suspected", sec_url, failures)
+                    logger.warning("Heartbeat failed for %s (%d failures): healthy -> suspected", sec_url, failures)
             elif old_status == SecondaryStatus.SUSPECTED:
                 if failures >= UNHEALTHY_THRESH:
                     status_info["status"] = SecondaryStatus.UNHEALTHY
-                    logger.error("Heartbeat failed for %s (%d failures) - marking as unhealthy", sec_url, failures)
-                elif failures < SUSPECT_THRESH:
-                    status_info["status"] = SecondaryStatus.HEALTHY
-                    logger.info("Heartbeat OK for %s, back to healthy", sec_url)
+                    logger.error("Heartbeat failed for %s (%d failures): suspected -> unhealthy", sec_url, failures)
             elif old_status == SecondaryStatus.UNHEALTHY:
-                if failures < SUSPECT_THRESH:
-                    status_info["status"] = SecondaryStatus.HEALTHY
-                    logger.info("Heartbeat OK for %s, recovered from unhealthy", sec_url)
-                elif failures < UNHEALTHY_THRESH:
-                    status_info["status"] = SecondaryStatus.SUSPECTED
-                    logger.info("Heartbeat OK for %s, improved to suspected", sec_url)
+                # Still failing, remain unhealthy
+                pass
 
 
 def heartbeat_worker():
@@ -123,10 +141,86 @@ heartbeat_thread = threading.Thread(target=heartbeat_worker, daemon=True)
 heartbeat_thread.start()
 
 
+def replication_worker(sec: str):
+    """Background worker that retries replication to a specific secondary"""
+    while True:
+        seq_msg = None
+        with REPLICATION_LOCK:
+            q = REPLICATION_QUEUES.get(sec, [])
+            if q:
+                seq_msg = q[0]
+
+        if seq_msg is None:
+            time.sleep(0.05)
+            continue
+
+        seq, msg = seq_msg
+
+        # Track replication attempts
+        attempt_count = DELIVERED_SEQ.get(f"{sec}_attempts_{seq}", 0) + 1
+        DELIVERED_SEQ[f"{sec}_attempts_{seq}"] = attempt_count
+        logger.info("Replication attempt %d to %s for seq=%d", attempt_count, sec, seq)
+
+        try:
+            r = requests.post(f"{sec}/replicate", json={"msg": msg, "seq": seq}, timeout=2.0)
+            if r.status_code == 200:
+                data = r.json()
+                if data.get("status") == "ok":
+                    with REPLICATION_LOCK:
+                        q = REPLICATION_QUEUES.get(sec, [])
+                        if q and q[0] == seq_msg:
+                            q.pop(0)
+
+                    DELIVERED_SEQ[sec] = max(DELIVERED_SEQ[sec], seq)
+                    # Clean up attempt counter
+                    DELIVERED_SEQ.pop(f"{sec}_attempts_{seq}", None)
+
+                    with ACK_LOCK:
+                        tracker = ACK_TRACKERS.get(seq)
+                        if tracker and sec not in tracker.acked_by:
+                            tracker.acked_by.add(sec)
+                            if len(tracker.acked_by) >= tracker.required_acks:
+                                tracker.event.set()
+                else:
+                    time.sleep(0.2)
+            else:
+                time.sleep(0.2)
+        except Exception as e:
+            logger.warning("Replication to %s failed for seq=%d: %s", sec, seq, e)
+            time.sleep(0.2)
+
+
+def start_replication_workers():
+    """Start daemon threads for each secondary"""
+    for sec in SECONDARIES:
+        t = threading.Thread(target=replication_worker, args=(sec,), daemon=True)
+        t.start()
+        logger.info("Started replication worker for %s", sec)
+
+start_replication_workers()
+
+
 @app.get("/messages")
 def list_messages():
     msg_list = [msg for _, msg in sorted(MESSAGES, key=lambda x: x[0])]
     return jsonify({"messages": msg_list})
+
+def has_quorum() -> bool:
+    """Check if master has quorum (majority of nodes healthy)"""
+    if not SECONDARIES:
+        return True
+    
+    init_secondary_statuses()
+    with STATUS_LOCK:
+        healthy_count = sum(
+            1 for sec in SECONDARIES
+            if SECONDARY_STATUS.get(sec, {}).get("status", SecondaryStatus.HEALTHY) == SecondaryStatus.HEALTHY
+        )
+    
+    majority = (len(SECONDARIES) + 1) // 2 + 1
+    quorum = 1 + healthy_count
+    return quorum >= majority
+
 
 @app.post("/messages")
 def append_message():
@@ -135,129 +229,80 @@ def append_message():
     if not isinstance(msg, str):
         return jsonify({"error": "Expected JSON with string field 'msg'"}), 400
 
-    # Write concern: w=1 means master only, w=2 means master+1 secondary, etc.
-    # Defaults to all secondaries if not specified (backward compat)
-    # Count only healthy/suspected secondaries for write concern validation
-    init_secondary_statuses()
-    with STATUS_LOCK:
-        available_secondaries = [
-            sec for sec in SECONDARIES
-            if SECONDARY_STATUS.get(sec, {}).get("status", SecondaryStatus.HEALTHY) != SecondaryStatus.UNHEALTHY
-        ]
-    
+    # Quorum check
+    if not has_quorum():
+        return jsonify({
+            "error": "no quorum, master is read-only",
+            "detail": "Not enough healthy nodes to form a majority"
+        }), 503
+
+    start_ts = time.time()
+
+    # Validate and normalize w
     w = data.get("w")
     if w is None:
-        w = len(available_secondaries) + 1
+        w = len(SECONDARIES) + 1
     else:
         w = int(w)
-        max_w = len(available_secondaries) + 1
-        if w < 1 or w > max_w:
-            return jsonify({"error": f"Write concern w must be between 1 and {max_w} (only {len(available_secondaries)} healthy/suspected secondaries available)"}), 400
+        if not (1 <= w <= len(SECONDARIES) + 1):
+            return jsonify({"error": f"Write concern w must be between 1 and {len(SECONDARIES) + 1}"}), 400
 
-    start = time.time()
-
-    # Thread-safe sequence number assignment
+    # Assign seq
     global SEQ_COUNTER
     with SEQ_LOCK:
         SEQ_COUNTER += 1
         seq = SEQ_COUNTER
 
     MESSAGES.append((seq, msg))
-    logger.info("Appended locally seq=%d msg=%s", seq, msg)
+    logger.info("Appended locally seq=%d msg=%s w=%d", seq, msg, w)
 
-    # w includes master, so we need w-1 ACKs from secondaries
-    # We ALWAYS replicate to all secondaries for eventual consistency
-    # w only controls how many ACKs we wait for before responding
+    # Enqueue message for all secondaries
+    with REPLICATION_LOCK:
+        for sec in SECONDARIES:
+            REPLICATION_QUEUES.setdefault(sec, []).append((seq, msg))
+
     required_acks = w - 1
-    acks = []
-    failed_secondaries = []
+    tracker = None
 
-    def replicate_to_secondary(sec: str) -> dict:
-        with STATUS_LOCK:
-            sec_status = SECONDARY_STATUS.get(sec, {}).get("status", SecondaryStatus.HEALTHY)
-            if sec_status == SecondaryStatus.UNHEALTHY:
-                logger.debug("Skipping %s (unhealthy) for seq=%d", sec, seq)
-                return {"secondary": sec, "success": False, "error": "secondary is unhealthy", "skipped": True}
-        
-        try:
-            url = f"{sec}/replicate"
-            r = requests.post(url, json={"msg": msg, "seq": seq}, timeout=30)
-            r.raise_for_status()
-            ack_data = r.json()
-            update_secondary_status(sec, True)
-            return {"secondary": sec, "ack": ack_data.get("status", "ok"), "status_code": r.status_code, "success": True}
-        except Exception as e:
-            logger.warning("Replication to %s failed for seq=%d: %s", sec, seq, e)
-            update_secondary_status(sec, False)
-            return {"secondary": sec, "success": False, "error": str(e)}
+    if required_acks > 0 and SECONDARIES:
+        tracker = AckTracker(required_acks=required_acks)
+        with ACK_LOCK:
+            ACK_TRACKERS[seq] = tracker
 
-    if required_acks == 0:
-        logger.info("w=1: Replicating asynchronously (not waiting for ACKs)")
-        for sec in available_secondaries:
-            # Fire and forget - start replication in background
-            def async_replicate(secondary):
-                try:
-                    url = f"{secondary}/replicate"
-                    requests.post(url, json={"msg": msg, "seq": seq}, timeout=30)
-                    logger.info("Replication completed to %s for seq=%d", secondary, seq)
-                    update_secondary_status(secondary, True)
-                except Exception as e:
-                    logger.warning("Async replication to %s failed for seq=%d: %s", secondary, seq, e)
-                    update_secondary_status(secondary, False)
+        # Wait until enough different secondaries have acked (with timeout to prevent indefinite hangs)
+        # Timeout: 30 seconds per required ACK, minimum 60 seconds
+        timeout_seconds = max(60, required_acks * 30)
+        wait_result = tracker.event.wait(timeout=timeout_seconds)
 
-            thread = threading.Thread(target=async_replicate, args=(sec,))
-            thread.daemon = True
-            thread.start()
-            logger.info("Replication initiated to %s for seq=%d", sec, seq)
-
-        # Calculate duration for w=1 (fast response, no waiting)
-        duration_ms = int((time.time() - start) * 1000)
-    else:
-        if len(available_secondaries) == 0:
-            return jsonify({
-                "error": f"Write concern w={w} cannot be satisfied",
-                "detail": "No healthy or suspected secondaries available",
-                "required_acks": required_acks
-            }), 502
-        
-        executor = ThreadPoolExecutor(max_workers=len(available_secondaries))
-        try:
-            futures = {executor.submit(replicate_to_secondary, sec): sec for sec in available_secondaries}
-
-            response_ready = False
-            for future in as_completed(futures):
-                result = future.result()
-                if result["success"]:
-                    acks.append({"secondary": result["secondary"], "ack": result["ack"]})
-                    logger.info("ACK from %s for seq=%d status=%d", result["secondary"], seq, result["status_code"])
-
-                    if len(acks) >= required_acks and not response_ready:
-                        response_ready = True
-                        logger.info("Write concern w=%d satisfied with %d ACKs", w, len(acks))
-                        duration_ms = int((time.time() - start) * 1000)
-                        for f in futures:
-                            if not f.done():
-                                f.cancel()
-                        break
-                else:
-                    failed_secondaries.append(result["secondary"])
-                    logger.warning("Replication failed to %s for seq=%d", result["secondary"], seq)
-        finally:
-            # Shutdown executor (won't wait for cancelled futures)
-            executor.shutdown(wait=False)
-
-        if len(acks) < required_acks:
+        # Verify condition after wake-up
+        if not wait_result or len(tracker.acked_by) < required_acks:
+            with ACK_LOCK:
+                ACK_TRACKERS.pop(seq, None)
             return jsonify({
                 "error": f"Write concern w={w} not satisfied",
-                "detail": f"Required {required_acks} ACKs, got {len(acks)}",
-                "failed_secondaries": failed_secondaries
+                "detail": f"Required {required_acks} ACKs, got {len(tracker.acked_by)} (timeout: {timeout_seconds}s)",
+                "acked_by": list(tracker.acked_by)
             }), 502
 
-        if 'duration_ms' not in locals():
-            duration_ms = int((time.time() - start) * 1000)
+    duration_ms = int((time.time() - start_ts) * 1000)
+
+    # Prepare response
     msg_list = [m for _, m in sorted(MESSAGES, key=lambda x: x[0])]
+    acks = []
+    if tracker:
+        acks = [{"secondary": s} for s in tracker.acked_by]
+        with ACK_LOCK:
+            ACK_TRACKERS.pop(seq, None)
+
+    if required_acks > 0:
+        logger.info("Write concern w=%d satisfied with %d ACKs in %d ms", w, len(acks), duration_ms)
     logger.info("POST /messages completed w=%d, acks=%d in %d ms", w, len(acks), duration_ms)
-    return jsonify({"messages": msg_list, "acks": acks, "w": w, "duration_ms": duration_ms}), 201
+    return jsonify({
+        "messages": msg_list,
+        "acks": acks,
+        "w": w,
+        "duration_ms": duration_ms,
+    }), 201
 
 
 @app.get("/health")

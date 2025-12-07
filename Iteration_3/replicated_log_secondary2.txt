@@ -1,0 +1,41 @@
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 23:16:23,489 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.2:8001
+rl-secondary-2  | 2025-12-07 23:16:23,489 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 23:16:25,602 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:25] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:27,613 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:27] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 23:16:42,713 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.2:8001
+rl-secondary-2  | 2025-12-07 23:16:42,714 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 23:16:42,842 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:43,682 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:43,713 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:44,346 | INFO | Replicated seq=1 msg=Msg1 (pos=0)
+rl-secondary-2  | 2025-12-07 23:16:44,347 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:44] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:44,351 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:45,728 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:45] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:45,855 | INFO | Replicated seq=2 msg=Msg2 (pos=1)
+rl-secondary-2  | 2025-12-07 23:16:45,856 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:45] "[35m[1mPOST /replicate HTTP/1.1[0m" 500 -
+rl-secondary-2  | 2025-12-07 23:16:46,064 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:47,566 | INFO | Duplicate seq 2 detected, skipping replication
+rl-secondary-2  | 2025-12-07 23:16:47,566 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:47] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:47,572 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:47,700 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:47] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:47,735 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:47] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:49,077 | INFO | Replicated seq=3 msg=Msg3 (pos=2)
+rl-secondary-2  | 2025-12-07 23:16:49,078 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:49] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:49,086 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:49,414 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:49] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:49,748 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:49] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:50,592 | INFO | Replicated seq=4 msg=Msg4 (pos=3)
+rl-secondary-2  | 2025-12-07 23:16:50,593 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:50] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:51,447 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:51] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:51,468 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:51] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:51,754 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:51] "GET /health HTTP/1.1" 200 -

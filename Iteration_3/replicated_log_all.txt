@@ -1,0 +1,234 @@
+rl-secondary-1  |  * Serving Flask app 'app'
+rl-secondary-1  |  * Debug mode: off
+rl-secondary-1  | 2025-12-07 23:16:23,496 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-1  |  * Running on all addresses (0.0.0.0)
+rl-secondary-1  |  * Running on http://127.0.0.1:8001
+rl-secondary-1  |  * Running on http://172.18.0.3:8001
+rl-secondary-1  | 2025-12-07 23:16:23,497 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-1  | 2025-12-07 23:16:25,597 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:25] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:27,607 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:27] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:28,470 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:28] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:29,616 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:29] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:30,554 | INFO | Replicated seq=1 msg=Msg1 (pos=0)
+rl-secondary-1  | 2025-12-07 23:16:30,554 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:30] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:31,636 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:31] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:32,227 | INFO | Replicated seq=2 msg=Msg2 (pos=1)
+rl-secondary-1  | 2025-12-07 23:16:32,228 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:33,520 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:33] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:33,649 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:33] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:34,021 | INFO | Replicated seq=3 msg=Msg3 (pos=2)
+rl-secondary-1  | 2025-12-07 23:16:34,021 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:34] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:35,658 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:35] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:37,675 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:37] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:38,571 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:38] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:39,691 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:39] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:41,702 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:41] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:41,703 | INFO | Replicated seq=4 msg=Msg4 (pos=3)
+rl-secondary-1  | 2025-12-07 23:16:41,703 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:41] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:43,610 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:43,711 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:45,724 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:45] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:47,734 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:47] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:48,657 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:48] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:49,744 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:49] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:51,752 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:51] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 23:16:23,489 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.2:8001
+rl-secondary-2  | 2025-12-07 23:16:23,489 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 23:16:25,602 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:25] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:27,613 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:27] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 23:16:42,713 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.2:8001
+rl-secondary-2  | 2025-12-07 23:16:42,714 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 23:16:42,842 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:43,682 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:43,713 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:44,346 | INFO | Replicated seq=1 msg=Msg1 (pos=0)
+rl-secondary-2  | 2025-12-07 23:16:44,347 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:44] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:44,351 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:45,728 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:45] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:45,855 | INFO | Replicated seq=2 msg=Msg2 (pos=1)
+rl-secondary-2  | 2025-12-07 23:16:45,856 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:45] "[35m[1mPOST /replicate HTTP/1.1[0m" 500 -
+rl-secondary-2  | 2025-12-07 23:16:46,064 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:47,566 | INFO | Duplicate seq 2 detected, skipping replication
+rl-secondary-2  | 2025-12-07 23:16:47,566 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:47] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:47,572 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:47,700 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:47] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:47,735 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:47] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:49,077 | INFO | Replicated seq=3 msg=Msg3 (pos=2)
+rl-secondary-2  | 2025-12-07 23:16:49,078 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:49] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:49,086 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 23:16:49,414 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:49] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:49,748 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:49] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:50,592 | INFO | Replicated seq=4 msg=Msg4 (pos=3)
+rl-secondary-2  | 2025-12-07 23:16:50,593 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:50] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:51,447 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:51] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:51,468 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:51] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 23:16:51,754 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:51] "GET /health HTTP/1.1" 200 -
+rl-master       | 2025-12-07 23:16:23,583 | INFO | Heartbeat: http://secondary1:8001 initialized as healthy
+rl-master       | 2025-12-07 23:16:23,583 | INFO | Heartbeat: http://secondary2:8001 initialized as healthy
+rl-master       | 2025-12-07 23:16:23,583 | INFO | Heartbeat worker started (interval=2.0s)
+rl-master       | 2025-12-07 23:16:23,584 | INFO | Started replication worker for http://secondary1:8001
+rl-master       | 2025-12-07 23:16:23,584 | INFO | Started replication worker for http://secondary2:8001
+rl-master       |  * Serving Flask app 'app'
+rl-master       |  * Debug mode: off
+rl-master       | 2025-12-07 23:16:23,585 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-master       |  * Running on all addresses (0.0.0.0)
+rl-master       |  * Running on http://127.0.0.1:8000
+rl-master       |  * Running on http://172.18.0.4:8000
+rl-master       | 2025-12-07 23:16:23,585 | INFO | [33mPress CTRL+C to quit[0m
+rl-master       | 2025-12-07 23:16:28,533 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:28] "GET /health HTTP/1.1" 200 -
+rl-master       | 2025-12-07 23:16:30,504 | INFO | Appended locally seq=1 msg=Msg1 w=1
+rl-master       | 2025-12-07 23:16:30,504 | INFO | POST /messages completed w=1, acks=0 in 0 ms
+rl-master       | 2025-12-07 23:16:30,505 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:30] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master       | 2025-12-07 23:16:30,537 | INFO | Replication attempt 1 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:30,543 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:30,552 | INFO | Replication attempt 1 to http://secondary1:8001 for seq=1
+rl-master       | 2025-12-07 23:16:30,746 | INFO | Replication attempt 2 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:30,753 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:30,959 | INFO | Replication attempt 3 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:30,969 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:31,175 | INFO | Replication attempt 4 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:31,185 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:31,386 | INFO | Replication attempt 5 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:31,397 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:31,601 | INFO | Replication attempt 6 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:31,608 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:31,642 | WARNING | Heartbeat failed for http://secondary2:8001 (2 failures): healthy -> suspected
+rl-master       | 2025-12-07 23:16:31,809 | INFO | Replication attempt 7 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:31,815 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:32,021 | INFO | Replication attempt 8 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:32,028 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:32,196 | INFO | Appended locally seq=2 msg=Msg2 w=2
+rl-master       | 2025-12-07 23:16:32,225 | INFO | Replication attempt 1 to http://secondary1:8001 for seq=2
+rl-master       | 2025-12-07 23:16:32,229 | INFO | Write concern w=2 satisfied with 1 ACKs in 33 ms
+rl-master       | 2025-12-07 23:16:32,229 | INFO | POST /messages completed w=2, acks=1 in 33 ms
+rl-master       | 2025-12-07 23:16:32,229 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:32] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master       | 2025-12-07 23:16:32,229 | INFO | Replication attempt 9 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:32,234 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:32,440 | INFO | Replication attempt 10 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:32,448 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:32,649 | INFO | Replication attempt 11 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:32,656 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:32,860 | INFO | Replication attempt 12 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:32,870 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:33,073 | INFO | Replication attempt 13 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:33,083 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:33,285 | INFO | Replication attempt 14 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:33,292 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:33,492 | INFO | Replication attempt 15 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:33,496 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:33,573 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:33] "GET /health HTTP/1.1" 200 -
+rl-master       | 2025-12-07 23:16:33,702 | INFO | Replication attempt 16 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:33,707 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:33,910 | INFO | Replication attempt 17 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:33,916 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:33,977 | INFO | Appended locally seq=3 msg=Msg3 w=3
+rl-master       | 2025-12-07 23:16:34,017 | INFO | Replication attempt 1 to http://secondary1:8001 for seq=3
+rl-master       | 2025-12-07 23:16:34,118 | INFO | Replication attempt 18 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:34,124 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:34,330 | INFO | Replication attempt 19 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:34,340 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:34,543 | INFO | Replication attempt 20 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:34,554 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:34,760 | INFO | Replication attempt 21 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:34,771 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:34,973 | INFO | Replication attempt 22 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:34,985 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:35,190 | INFO | Replication attempt 23 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:35,202 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:35,403 | INFO | Replication attempt 24 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:35,413 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:35,616 | INFO | Replication attempt 25 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:35,623 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:35,825 | INFO | Replication attempt 26 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:35,835 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:36,040 | INFO | Replication attempt 27 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:36,046 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:36,251 | INFO | Replication attempt 28 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:36,259 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:36,464 | INFO | Replication attempt 29 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:36,474 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:36,680 | INFO | Replication attempt 30 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:36,689 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:36,895 | INFO | Replication attempt 31 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:36,903 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:37,105 | INFO | Replication attempt 32 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:37,114 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:37,315 | INFO | Replication attempt 33 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:37,327 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:37,532 | INFO | Replication attempt 34 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:37,546 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:37,685 | ERROR | Heartbeat failed for http://secondary2:8001 (5 failures): suspected -> unhealthy
+rl-master       | 2025-12-07 23:16:37,752 | INFO | Replication attempt 35 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:37,763 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:37,965 | INFO | Replication attempt 36 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:37,975 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:38,181 | INFO | Replication attempt 37 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:38,190 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:38,396 | INFO | Replication attempt 38 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:38,405 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:38,605 | INFO | Replication attempt 39 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:38,609 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:38,616 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:38] "GET /health HTTP/1.1" 200 -
+rl-master       | 2025-12-07 23:16:38,814 | INFO | Replication attempt 40 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:38,824 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:39,026 | INFO | Replication attempt 41 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:39,037 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:39,238 | INFO | Replication attempt 42 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:39,250 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:39,451 | INFO | Replication attempt 43 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:39,462 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:39,667 | INFO | Replication attempt 44 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:39,675 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:39,881 | INFO | Replication attempt 45 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:39,890 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:40,091 | INFO | Replication attempt 46 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:40,102 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:40,308 | INFO | Replication attempt 47 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:40,317 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:40,522 | INFO | Replication attempt 48 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:40,531 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:40,737 | INFO | Replication attempt 49 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:40,747 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:40,948 | INFO | Replication attempt 50 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:40,956 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:41,158 | INFO | Replication attempt 51 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:41,164 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:41,366 | INFO | Replication attempt 52 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:41,373 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:41,577 | INFO | Replication attempt 53 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:41,584 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:41,676 | INFO | Appended locally seq=4 msg=Msg4 w=1
+rl-master       | 2025-12-07 23:16:41,676 | INFO | POST /messages completed w=1, acks=0 in 0 ms
+rl-master       | 2025-12-07 23:16:41,676 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:41] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -
+rl-master       | 2025-12-07 23:16:41,700 | INFO | Replication attempt 1 to http://secondary1:8001 for seq=4
+rl-master       | 2025-12-07 23:16:41,788 | INFO | Replication attempt 54 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:41,794 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:42,000 | INFO | Replication attempt 55 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:42,005 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:42,210 | INFO | Replication attempt 56 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:42,216 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:42,422 | INFO | Replication attempt 57 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:42,429 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:42,631 | INFO | Replication attempt 58 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:42,634 | WARNING | Replication to http://secondary2:8001 failed for seq=1: HTTPConnectionPool(host='secondary2', port=8001): Max retries exceeded with url: /replicate (Caused by NameResolutionError("HTTPConnection(host='secondary2', port=8001): Failed to resolve 'secondary2' ([Errno -2] Name or service not known)"))
+rl-master       | 2025-12-07 23:16:42,840 | INFO | Replication attempt 59 to http://secondary2:8001 for seq=1
+rl-master       | 2025-12-07 23:16:43,651 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-master       | 2025-12-07 23:16:43,713 | INFO | Heartbeat OK for http://secondary2:8001: unhealthy -> healthy (recovered)
+rl-master       | 2025-12-07 23:16:44,348 | INFO | Replication attempt 1 to http://secondary2:8001 for seq=2
+rl-master       | 2025-12-07 23:16:46,062 | INFO | Replication attempt 2 to http://secondary2:8001 for seq=2
+rl-master       | 2025-12-07 23:16:47,568 | INFO | Replication attempt 1 to http://secondary2:8001 for seq=3
+rl-master       | 2025-12-07 23:16:48,685 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:48] "GET /health HTTP/1.1" 200 -
+rl-master       | 2025-12-07 23:16:49,080 | INFO | Replication attempt 1 to http://secondary2:8001 for seq=4
+rl-master       | 2025-12-07 23:16:49,080 | INFO | Write concern w=3 satisfied with 2 ACKs in 15103 ms
+rl-master       | 2025-12-07 23:16:49,084 | INFO | POST /messages completed w=3, acks=2 in 15103 ms
+rl-master       | 2025-12-07 23:16:49,084 | INFO | 192.168.65.1 - - [07/Dec/2025 23:16:49] "[35m[1mPOST /messages HTTP/1.1[0m" 201 -

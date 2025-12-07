@@ -1,0 +1,34 @@
+rl-secondary-1  |  * Serving Flask app 'app'
+rl-secondary-1  |  * Debug mode: off
+rl-secondary-1  | 2025-12-07 23:16:23,496 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-1  |  * Running on all addresses (0.0.0.0)
+rl-secondary-1  |  * Running on http://127.0.0.1:8001
+rl-secondary-1  |  * Running on http://172.18.0.3:8001
+rl-secondary-1  | 2025-12-07 23:16:23,497 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-1  | 2025-12-07 23:16:25,597 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:25] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:27,607 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:27] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:28,470 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:28] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:29,616 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:29] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:30,554 | INFO | Replicated seq=1 msg=Msg1 (pos=0)
+rl-secondary-1  | 2025-12-07 23:16:30,554 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:30] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:31,636 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:31] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:32,227 | INFO | Replicated seq=2 msg=Msg2 (pos=1)
+rl-secondary-1  | 2025-12-07 23:16:32,228 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:33,520 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:33] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:33,649 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:33] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:34,021 | INFO | Replicated seq=3 msg=Msg3 (pos=2)
+rl-secondary-1  | 2025-12-07 23:16:34,021 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:34] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:35,658 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:35] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:37,675 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:37] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:38,571 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:38] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:39,691 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:39] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:41,702 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:41] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:41,703 | INFO | Replicated seq=4 msg=Msg4 (pos=3)
+rl-secondary-1  | 2025-12-07 23:16:41,703 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:41] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:43,610 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:43,711 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:43] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:45,724 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:45] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:47,734 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:47] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:48,657 | INFO | 127.0.0.1 - - [07/Dec/2025 23:16:48] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:49,744 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:49] "GET /health HTTP/1.1" 200 -
+rl-secondary-1  | 2025-12-07 23:16:51,752 | INFO | 172.18.0.4 - - [07/Dec/2025 23:16:51] "GET /health HTTP/1.1" 200 -
