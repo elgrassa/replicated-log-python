@@ -34,8 +34,8 @@ def get_secondary_ports() -> List[int]:
 
     if not ports:
         try:
-            cmd = "docker compose ps --format json"
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
+            cmd = ["docker", "compose", "ps", "--format", "json"]
+            result = subprocess.run(cmd, capture_output=True, text=True, check=True)  # nosec B603 - safe command
             containers_info = json.loads(result.stdout)
             for container in containers_info:
                 if container.get("Service", "").startswith("secondary"):

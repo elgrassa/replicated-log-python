@@ -1,6 +1,5 @@
 import os
 import time
-import json
 import logging
 import threading
 from typing import List, Tuple
@@ -21,8 +20,9 @@ SEQ_COUNTER = 0
 SEQ_LOCK = threading.Lock()
 SECONDARIES = [u.strip() for u in os.environ.get("SECONDARIES", "").split(",") if u.strip()]
 
-HOST = os.environ.get("HOST", "0.0.0.0")
+HOST = os.environ.get("HOST", "0.0.0.0")  # nosec B104 - Dockerized app needs to bind to all interfaces
 PORT = int(os.environ.get("PORT", "8000"))
+
 
 @app.get("/messages")
 def list_messages():
@@ -47,13 +47,13 @@ def append_message():
             return jsonify({"error": f"Write concern w must be between 1 and {len(SECONDARIES) + 1}"}), 400
 
     start = time.time()
-    
+
     # Thread-safe sequence number assignment
     global SEQ_COUNTER
     with SEQ_LOCK:
         SEQ_COUNTER += 1
         seq = SEQ_COUNTER
-    
+
     MESSAGES.append((seq, msg))
     logger.info("Appended locally seq=%d msg=%s", seq, msg)
 
@@ -63,7 +63,7 @@ def append_message():
     required_acks = w - 1
     acks = []
     failed_secondaries = []
-    
+
     def replicate_to_secondary(sec: str) -> dict:
         """Replicate to a single secondary, return result"""
         try:
@@ -75,7 +75,7 @@ def append_message():
         except Exception as e:
             logger.warning("Replication to %s failed for seq=%d: %s", sec, seq, e)
             return {"secondary": sec, "success": False, "error": str(e)}
-    
+
     if required_acks == 0:
         # w=1: Start replication asynchronously, don't wait
         logger.info("w=1: Replicating to all secondaries asynchronously (not waiting for ACKs)")
@@ -88,12 +88,12 @@ def append_message():
                     logger.info("Replication completed to %s for seq=%d", secondary, seq)
                 except Exception as e:
                     logger.warning("Async replication to %s failed for seq=%d: %s", secondary, seq, e)
-            
+
             thread = threading.Thread(target=async_replicate, args=(sec,))
             thread.daemon = True
             thread.start()
             logger.info("Replication initiated to %s for seq=%d", sec, seq)
-        
+
         # Calculate duration for w=1 (fast response, no waiting)
         duration_ms = int((time.time() - start) * 1000)
     else:
@@ -102,14 +102,14 @@ def append_message():
         executor = ThreadPoolExecutor(max_workers=len(SECONDARIES))
         try:
             futures = {executor.submit(replicate_to_secondary, sec): sec for sec in SECONDARIES}
-            
+
             response_ready = False
             for future in as_completed(futures):
                 result = future.result()
                 if result["success"]:
                     acks.append({"secondary": result["secondary"], "ack": result["ack"]})
                     logger.info("ACK from %s for seq=%d status=%d", result["secondary"], seq, result["status_code"])
-                    
+
                     # If we have enough ACKs, we can respond immediately
                     if len(acks) >= required_acks and not response_ready:
                         response_ready = True
@@ -127,7 +127,7 @@ def append_message():
         finally:
             # Shutdown executor (won't wait for cancelled futures)
             executor.shutdown(wait=False)
-        
+
         # Check if we got enough ACKs to satisfy write concern
         if len(acks) < required_acks:
             return jsonify({
@@ -135,7 +135,7 @@ def append_message():
                 "detail": f"Required {required_acks} ACKs, got {len(acks)}",
                 "failed_secondaries": failed_secondaries
             }), 502
-        
+
         # If we didn't break early, calculate duration now
         if 'duration_ms' not in locals():
             duration_ms = int((time.time() - start) * 1000)
@@ -143,9 +143,11 @@ def append_message():
     logger.info("POST /messages completed w=%d, acks=%d in %d ms", w, len(acks), duration_ms)
     return jsonify({"messages": msg_list, "acks": acks, "w": w, "duration_ms": duration_ms}), 201
 
+
 @app.get("/health")
 def health():
     return jsonify({"status": "ok", "secondaries": SECONDARIES, "count": len(MESSAGES)})
 
+
 if __name__ == "__main__":
-    app.run(host=HOST, port=PORT)
+    app.run(host=HOST, port=PORT)  # nosec B104 - Dockerized app needs to bind to all interfaces

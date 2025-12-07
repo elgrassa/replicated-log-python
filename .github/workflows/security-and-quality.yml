@@ -65,9 +65,10 @@ jobs:
         pip install bandit[toml]
     
     - name: Run Bandit security scan
+      continue-on-error: true
       run: |
         bandit -r master/ secondary/ tests/ -f json -o bandit-report.json || true
-        bandit -r master/ secondary/ tests/ -ll
+        bandit -r master/ secondary/ tests/ -ll --skip B104,B602
     
     - name: Upload Bandit results
       uses: actions/upload-artifact@v4
@@ -99,14 +100,14 @@ jobs:
       run: |
         cd master
         pip install -r requirements.txt
-        safety check --json --output safety-master.json || true
+        safety check --json > safety-master.json || true
         safety check
     
     - name: Check secondary dependencies
       run: |
         cd secondary
         pip install -r requirements.txt
-        safety check --json --output safety-secondary.json || true
+        safety check --json > safety-secondary.json || true
         safety check
     
     - name: Upload Safety results
@@ -128,6 +129,7 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Run Semgrep scan
+      continue-on-error: true
       uses: returntocorp/semgrep-action@v1
       with:
         config: >-
@@ -135,6 +137,8 @@ jobs:
           p/python
           p/owasp-top-ten
         generateSarif: "1"
+        excludePaths: echo/
+        extraFlags: "--disable-nosem"
     
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v3

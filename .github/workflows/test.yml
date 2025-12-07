@@ -1,6 +1,6 @@
 # Test workflow for replicated log system
 # Separate test suites for Iteration 1 and Iteration 2
-# Tests with 2 and 5 secondaries using matrix strategy
+# Tests with 3 and 5 secondaries using matrix strategy
 # Collects logs and uploads as artifacts
 
 name: Test Replicated Log System
@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        num_secondaries: [2, 5]
+        num_secondaries: [3, 5]
         include:
-          - num_secondaries: 2
-            secondary_delays: "0,1500"
+          - num_secondaries: 3
+            secondary_delays: "0,500,1500"
           - num_secondaries: 5
             secondary_delays: "0,100,500,1000,2000"
     
@@ -226,10 +226,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        num_secondaries: [2, 5]
+        num_secondaries: [3, 5]
         include:
-          - num_secondaries: 2
-            secondary_delays: "0,1500"
+          - num_secondaries: 3
+            secondary_delays: "0,500,1500"
           - num_secondaries: 5
             secondary_delays: "0,100,500,1000,2000"
     

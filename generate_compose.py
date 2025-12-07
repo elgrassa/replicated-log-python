@@ -24,10 +24,10 @@ for i in range(1, NUM_SECONDARIES + 1):
     # i=1 -> 8001, i=2 -> 8002, i=3 -> 8003, etc.
     host_port = SECONDARY_START_PORT + (i - 1)
     delay = int(SECONDARY_DELAYS[i - 1]) if i - 1 < len(SECONDARY_DELAYS) else 0
-    
+
     secondaries_list.append(f"http://{secondary_name}:8001")
     depends_on.append(f"      - {secondary_name}")
-    
+
     container_name = f"rl-secondary-{i}"
     services.append(f"""  {secondary_name}:
     build: ./secondary
@@ -67,4 +67,3 @@ print(f"Secondaries: ports {SECONDARY_START_PORT} to {SECONDARY_START_PORT + NUM
 for i in range(1, NUM_SECONDARIES + 1):
     host_port = SECONDARY_START_PORT + (i - 1)
     print(f"  Secondary {i}: http://localhost:{host_port}")
-

@@ -19,6 +19,7 @@ DELAY_MS = int(os.environ.get("DELAY_MS", "0"))
 MESSAGES: List[Tuple[int, str]] = []
 MESSAGES_LOCK = threading.Lock()
 
+
 @app.get("/messages")
 def list_messages():
     msg_list = [msg for _, msg in sorted(MESSAGES, key=lambda x: x[0])]
@@ -32,7 +33,7 @@ def replicate():
         return jsonify({"error": "Expected JSON with string field 'msg'"}), 400
 
     seq = data.get("seq", 0)
-    
+
     if DELAY_MS > 0:
         logger.info("Simulating delay %d ms", DELAY_MS)
         time.sleep(DELAY_MS / 1000.0)
@@ -43,7 +44,7 @@ def replicate():
         if any(seq_num == seq for seq_num, _ in MESSAGES):
             logger.info("Duplicate seq %d detected, skipping replication", seq)
             return jsonify({"status": "ok", "idx": -1, "duplicate": True})
-        
+
         # Insert in sequence order to maintain total ordering
         insert_pos = 0
         for i, (seq_num, _) in enumerate(MESSAGES):
@@ -51,14 +52,16 @@ def replicate():
                 insert_pos = i + 1
             else:
                 break
-        
+
         MESSAGES.insert(insert_pos, (seq, msg))
         logger.info("Replicated seq=%d msg=%s (pos=%d)", seq, msg, insert_pos)
         return jsonify({"status": "ok", "idx": insert_pos, "seq": seq})
+
 
 @app.get("/health")
 def health():
     return jsonify({"status": "ok", "count": len(MESSAGES), "delay_ms": DELAY_MS})
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=PORT)
+    app.run(host="0.0.0.0", port=PORT)  # nosec B104 - Dockerized app needs to bind to all interfaces
