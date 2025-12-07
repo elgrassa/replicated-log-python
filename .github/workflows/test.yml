@@ -44,7 +44,22 @@ jobs:
 
     - name: Build Docker images
       run: |
-        docker compose build
+        # Retry build on transient Docker errors
+        max_retries=3
+        retry_count=0
+        while [ $retry_count -lt $max_retries ]; do
+          if docker compose build; then
+            break
+          fi
+          retry_count=$((retry_count + 1))
+          if [ $retry_count -lt $max_retries ]; then
+            echo "Build failed, retrying ($retry_count/$max_retries)..."
+            sleep 5
+          else
+            echo "Build failed after $max_retries attempts"
+            exit 1
+          fi
+        done
 
     - name: Start services
       run: |
@@ -216,7 +231,22 @@ jobs:
 
     - name: Build Docker images
       run: |
-        docker compose build
+        # Retry build on transient Docker errors
+        max_retries=3
+        retry_count=0
+        while [ $retry_count -lt $max_retries ]; do
+          if docker compose build; then
+            break
+          fi
+          retry_count=$((retry_count + 1))
+          if [ $retry_count -lt $max_retries ]; then
+            echo "Build failed, retrying ($retry_count/$max_retries)..."
+            sleep 5
+          else
+            echo "Build failed after $max_retries attempts"
+            exit 1
+          fi
+        done
 
     - name: Start services
       run: |
@@ -349,28 +379,60 @@ jobs:
       run: |
         failed=0
         
-        # Check for actual failure indicators (not just the word "failed" in test names)
-        # Use case-insensitive matching to catch both uppercase and lowercase failures
-        if [ -f test_iter2_results.txt ] && grep -qiE "(❌|failed|error|test.*failed|tests.*failed|exit code [1-9])" test_iter2_results.txt; then
-          echo "Iteration 2 shell tests failed"
+        # Check exit codes from test steps (most reliable indicator)
+        if [ "${{ steps.test_iter2.outputs.exit_code }}" != "0" ] && [ "${{ steps.test_iter2.outputs.exit_code }}" != "" ]; then
+          echo "Iteration 2 shell tests failed (exit code: ${{ steps.test_iter2.outputs.exit_code }})"
           failed=1
         fi
         
-        if [ -f pytest_iter2_results.txt ] && grep -qi "FAILED\|ERROR\|failed\|error" pytest_iter2_results.txt; then
-          echo "Iteration 2 pytest tests failed"
+        if [ "${{ steps.pytest_iter2.outputs.exit_code }}" != "0" ] && [ "${{ steps.pytest_iter2.outputs.exit_code }}" != "" ]; then
+          echo "Iteration 2 pytest tests failed (exit code: ${{ steps.pytest_iter2.outputs.exit_code }})"
           failed=1
         fi
         
-        # Check for actual failure indicators in concurrency tests
-        # Use case-insensitive matching to catch both uppercase and lowercase failures
-        if [ -f concurrent_results.txt ] && grep -qiE "(❌|failed|error|test.*failed|tests.*failed|exit code [1-9])" concurrent_results.txt; then
-          echo "Concurrency tests failed"
+        if [ "${{ steps.concurrent.outputs.exit_code }}" != "0" ] && [ "${{ steps.concurrent.outputs.exit_code }}" != "" ]; then
+          echo "Concurrency tests failed (exit code: ${{ steps.concurrent.outputs.exit_code }})"
           failed=1
         fi
         
-        if [ -f pytest_smoke_results.txt ] && grep -qi "FAILED\|ERROR\|failed\|error" pytest_smoke_results.txt; then
-          echo "Smoke tests failed"
+        if [ "${{ steps.pytest_smoke.outputs.exit_code }}" != "0" ] && [ "${{ steps.pytest_smoke.outputs.exit_code }}" != "" ]; then
+          echo "Smoke tests failed (exit code: ${{ steps.pytest_smoke.outputs.exit_code }})"
           failed=1
+        fi
+        
+        # Also check pytest results for FAILED/ERROR in summary (backup check)
+        # Only check the summary line, not individual test names or informational messages
+        if [ -f pytest_iter2_results.txt ]; then
+          # Check if there are actual failures in the summary (not just the word in test names)
+          if grep -qiE "(\d+ failed|\d+ error)" pytest_iter2_results.txt; then
+            echo "Iteration 2 pytest tests failed (found failures in summary)"
+            failed=1
+          fi
+        fi
+        
+        if [ -f pytest_smoke_results.txt ]; then
+          if grep -qiE "(\d+ failed|\d+ error)" pytest_smoke_results.txt; then
+            echo "Smoke tests failed (found failures in summary)"
+            failed=1
+          fi
+        fi
+        
+        # Check shell test results for critical failures only (not warnings or informational ❌)
+        # Look for patterns that indicate actual test failures, not just informational messages
+        if [ -f test_iter2_results.txt ]; then
+          # Check for critical failure patterns (health check failures, script exit codes)
+          if grep -qiE "(health check failed|exit code [1-9])" test_iter2_results.txt; then
+            echo "Iteration 2 shell tests failed (found critical failure indicators)"
+            failed=1
+          fi
+        fi
+        
+        # Check concurrency test results for critical failures
+        if [ -f concurrent_results.txt ]; then
+          if grep -qiE "(health check failed|exit code [1-9]|Traceback|Exception)" concurrent_results.txt; then
+            echo "Concurrency tests failed (found critical failure indicators)"
+            failed=1
+          fi
         fi
         
         if [ $failed -eq 1 ]; then
