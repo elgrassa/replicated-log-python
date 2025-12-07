@@ -555,24 +555,44 @@ class TestErrorHandling:
         if len(SECONDARIES) < 2:
             return  # Need at least 2 secondaries for this test
         
-        # Stop one secondary
-        import subprocess
-        subprocess.run(["docker", "compose", "stop", "secondary2"], capture_output=True)
-        time.sleep(1)  # Wait for stop
+        # Calculate how many secondaries we need to stop
+        # For w=3 (master + 2 secondaries), we need 2 ACKs
+        # So we need to stop enough secondaries so that we can't get 2 ACKs
+        required_acks = 2  # w=3 means master + 2 secondaries
+        num_secondaries = len(SECONDARIES)
         
+        # Stop enough secondaries so we can't satisfy w
+        # If we have 3 secondaries and need 2 ACKs, stop 2 of them (leaving 1)
+        # If we have 2 secondaries and need 2 ACKs, stop 1 of them (leaving 1)
+        secondaries_to_stop = max(1, num_secondaries - required_acks + 1)
+        
+        import subprocess
+        stopped_secondaries = []
         try:
-            # Try to write with w=3 (master + 2 secondaries) but only 1 secondary is up
+            # Stop the required number of secondaries (stop from the end)
+            for i in range(secondaries_to_stop):
+                secondary_name = f"secondary{num_secondaries - i}"
+                subprocess.run(["docker", "compose", "stop", secondary_name], capture_output=True, check=False)
+                stopped_secondaries.append(secondary_name)
+            
+            time.sleep(2)  # Wait for stops to complete
+
+            # Try to write with w=3 (master + 2 secondaries) but not enough secondaries are up
             unique_msg = f"need_two_{int(time.time() * 1000)}"
             resp = requests.post(f"{MASTER}/messages", json={"msg": unique_msg, "w": 3}, timeout=10)
-            
+
             # Should fail with 502 since we can't get 2 ACKs
-            assert resp.status_code == 502, f"Expected 502 for unsatisfied write concern, got {resp.status_code}"
+            assert resp.status_code == 502, f"Expected 502 for unsatisfied write concern, got {resp.status_code}. Response: {resp.text}"
+
             error_data = resp.json()
-            assert "error" in error_data or "Write concern" in str(error_data), "Error response should mention write concern"
+            assert "error" in error_data, "Error response should contain 'error' key"
+            error_msg = error_data.get("error", "")
+            assert "Write concern" in error_msg or "write concern" in error_msg.lower(), f"Error message should mention write concern, got: {error_msg}"
         finally:
-            # Restart secondary
-            subprocess.run(["docker", "compose", "start", "secondary2"], capture_output=True)
-            time.sleep(2)  # Wait for restart
+            # Restart all stopped secondaries
+            for secondary_name in stopped_secondaries:
+                subprocess.run(["docker", "compose", "start", secondary_name], capture_output=True, check=False)
+            time.sleep(3)  # Wait for restarts
     
     def test_err03_secondary_failure_w1_still_succeeds(self):
         """Secondary failure but w=1 still succeeds"""

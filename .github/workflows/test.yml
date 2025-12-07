@@ -37,22 +37,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests pytest flake8 pyyaml
+        pip install requests pytest pyyaml
 
     - name: Install system tools
       run: |
         sudo apt-get update
         sudo apt-get install -y jq curl bc
-
-    - name: Run Python linter
-      id: lint
-      continue-on-error: true
-      run: |
-        flake8 master/app.py secondary/app.py generate_compose.py tests/smoke_test.py \
-          --max-line-length=120 \
-          --ignore=E501,W503,E203 \
-          --exclude=__pycache__,*.pyc > lint_results.txt 2>&1 || true
-        echo "exit_code=$?" >> $GITHUB_OUTPUT
 
     - name: Generate docker-compose.yml
       run: |
@@ -161,13 +151,6 @@ jobs:
           echo '```' >> $GITHUB_STEP_SUMMARY
         fi
         
-        if [ -f lint_results.txt ] && [ -s lint_results.txt ]; then
-          echo "### Linter" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat lint_results.txt >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-        fi
-        
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "Logs uploaded as artifacts: replicated_log_*.txt" >> $GITHUB_STEP_SUMMARY
 
@@ -180,7 +163,6 @@ jobs:
           verify_results.txt
           test_results.txt
           pytest_results.txt
-          lint_results.txt
           replicated_log_master.txt
           replicated_log_all.txt
           replicated_log_secondary*.txt
@@ -191,10 +173,6 @@ jobs:
     - name: Check test results
       run: |
         failed=0
-        
-        if [ -f lint_results.txt ] && [ -s lint_results.txt ]; then
-          echo "Linter issues found (non-blocking)"
-        fi
         
         if [ -f verify_results.txt ] && ! grep -q "Consistent ✅" verify_results.txt; then
           echo "Verification failed"
@@ -245,22 +223,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests pytest flake8 pyyaml
+        pip install requests pytest pyyaml
 
     - name: Install system tools
       run: |
         sudo apt-get update
         sudo apt-get install -y jq curl bc
-
-    - name: Run Python linter
-      id: lint
-      continue-on-error: true
-      run: |
-        flake8 master/app.py secondary/app.py generate_compose.py tests/smoke_test.py tests/test_iteration2.py \
-          --max-line-length=120 \
-          --ignore=E501,W503,E203 \
-          --exclude=__pycache__,*.pyc > lint_results.txt 2>&1 || true
-        echo "exit_code=$?" >> $GITHUB_OUTPUT
 
     - name: Generate docker-compose.yml
       run: |
@@ -381,13 +349,6 @@ jobs:
           echo '```' >> $GITHUB_STEP_SUMMARY
         fi
         
-        if [ -f lint_results.txt ] && [ -s lint_results.txt ]; then
-          echo "### Linter" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat lint_results.txt >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-        fi
-        
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "Logs uploaded as artifacts: replicated_log_*.txt" >> $GITHUB_STEP_SUMMARY
 
@@ -401,7 +362,6 @@ jobs:
           pytest_iter2_results.txt
           concurrent_results.txt
           pytest_smoke_results.txt
-          lint_results.txt
           replicated_log_master.txt
           replicated_log_all.txt
           replicated_log_secondary*.txt
@@ -412,10 +372,6 @@ jobs:
     - name: Check test results
       run: |
         failed=0
-        
-        if [ -f lint_results.txt ] && [ -s lint_results.txt ]; then
-          echo "Linter issues found (non-blocking)"
-        fi
         
         if [ -f test_iter2_results.txt ] && grep -qi "failed\|error" test_iter2_results.txt; then
           echo "Iteration 2 shell tests failed"

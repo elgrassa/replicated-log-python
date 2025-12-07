@@ -184,7 +184,16 @@ jobs:
     - name: Run Ruff linter
       continue-on-error: true
       run: |
-        ruff check master/ secondary/ tests/ --output-format=github
+        ruff check master/ secondary/ tests/ generate_compose.py --output-format=github
+    
+    - name: Run Flake8 linter
+      continue-on-error: true
+      run: |
+        pip install flake8
+        flake8 master/app.py secondary/app.py generate_compose.py tests/smoke_test.py tests/test_iteration2.py \
+          --max-line-length=120 \
+          --ignore=E501,W503,E203 \
+          --exclude=__pycache__,*.pyc
 
   security-summary:
     name: Security Summary
