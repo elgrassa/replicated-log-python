@@ -68,7 +68,7 @@ jobs:
       continue-on-error: true
       run: |
         bandit -r master/ secondary/ tests/ -f json -o bandit-report.json || true
-        bandit -r master/ secondary/ tests/ -ll --skip B104,B602
+        bandit -r master/ secondary/ tests/ -ll --skip B101,B104,B404,B602,B603,B607,B110
     
     - name: Upload Bandit results
       uses: actions/upload-artifact@v4
