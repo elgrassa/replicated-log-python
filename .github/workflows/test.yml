@@ -305,13 +305,19 @@ jobs:
     - name: Collect logs
       if: always()
       run: |
-        docker compose logs master > replicated_log_master.txt
-        docker compose logs > replicated_log_all.txt
+        echo "Collecting logs after test execution..."
+        mkdir -p Iteration_2
+        docker compose logs master > Iteration_2/replicated_log_master.txt
+        docker compose logs > Iteration_2/replicated_log_all.txt
         for i in $(seq 1 ${{ matrix.num_secondaries }}); do
-          docker compose logs secondary$i > replicated_log_secondary$i.txt
+          docker compose logs secondary$i > Iteration_2/replicated_log_secondary$i.txt
         done
-        echo "Collected logs:"
-        ls -lh replicated_log_*.txt
+        echo ""
+        echo "Collected logs in Iteration_2/:"
+        ls -lh Iteration_2/replicated_log_*.txt
+        echo ""
+        echo "Log file sizes:"
+        du -h Iteration_2/replicated_log_*.txt
 
     - name: Test results summary
       if: always()
@@ -350,7 +356,7 @@ jobs:
         fi
         
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "Logs uploaded as artifacts: replicated_log_*.txt" >> $GITHUB_STEP_SUMMARY
+        echo "Logs uploaded as artifacts in Iteration_2/ folder: replicated_log_*.txt" >> $GITHUB_STEP_SUMMARY
 
     - name: Upload test results and logs
       if: always()
@@ -362,9 +368,7 @@ jobs:
           pytest_iter2_results.txt
           concurrent_results.txt
           pytest_smoke_results.txt
-          replicated_log_master.txt
-          replicated_log_all.txt
-          replicated_log_secondary*.txt
+          Iteration_2/
         retention-days: 30
         if-no-files-found: warn
         compression-level: 6
@@ -373,22 +377,26 @@ jobs:
       run: |
         failed=0
         
-        if [ -f test_iter2_results.txt ] && grep -qi "failed\|error" test_iter2_results.txt; then
+        # Check for actual failure indicators (not just the word "failed" in test names)
+        # Use case-insensitive matching to catch both uppercase and lowercase failures
+        if [ -f test_iter2_results.txt ] && grep -qiE "(❌|failed|error|test.*failed|tests.*failed|exit code [1-9])" test_iter2_results.txt; then
           echo "Iteration 2 shell tests failed"
           failed=1
         fi
         
-        if [ -f pytest_iter2_results.txt ] && grep -q "FAILED\|ERROR" pytest_iter2_results.txt; then
+        if [ -f pytest_iter2_results.txt ] && grep -qi "FAILED\|ERROR\|failed\|error" pytest_iter2_results.txt; then
           echo "Iteration 2 pytest tests failed"
           failed=1
         fi
         
-        if [ -f concurrent_results.txt ] && grep -qi "failed\|error" concurrent_results.txt; then
+        # Check for actual failure indicators in concurrency tests
+        # Use case-insensitive matching to catch both uppercase and lowercase failures
+        if [ -f concurrent_results.txt ] && grep -qiE "(❌|failed|error|test.*failed|tests.*failed|exit code [1-9])" concurrent_results.txt; then
           echo "Concurrency tests failed"
           failed=1
         fi
         
-        if [ -f pytest_smoke_results.txt ] && grep -q "FAILED\|ERROR" pytest_smoke_results.txt; then
+        if [ -f pytest_smoke_results.txt ] && grep -qi "FAILED\|ERROR\|failed\|error" pytest_smoke_results.txt; then
           echo "Smoke tests failed"
           failed=1
         fi

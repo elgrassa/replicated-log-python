@@ -264,8 +264,9 @@ class TestEventualConsistency:
             if unique_msg not in sec_msgs:
                 missing_count += 1
         
-        # With w=1, at least some secondaries should be missing it initially
-        assert missing_count >= 0, "Some secondaries may not have message yet"
+        # With w=1, some secondaries may be missing it initially (especially delayed ones)
+        # We don't assert a specific count here as it depends on timing and delays
+        # The important check is eventual consistency below
         
         # Wait for eventual consistency
         time.sleep(4)

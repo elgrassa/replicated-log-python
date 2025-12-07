@@ -1,0 +1,157 @@
+==========================================
+Iteration 2 Test Suite
+Testing with 2 secondary node(s)
+==========================================
+
+==========================================
+A. Write Concern Semantics
+==========================================
+
+A1. WC-01: Default write concern (all replicas)
+----------------------------------------
+✅ All services healthy
+
+Clearing previous messages...
+POST /messages with default w (no w parameter)...
+Response: w=3, ACKs=2, duration_ms=1509ms
+Real elapsed time: 1.528s
+✅ w matches expected: 3
+✅ ACK count matches: 2
+Checking consistency...
+✅ All nodes consistent
+
+A2. WC-02: w=1 (master-only, fast)
+----------------------------------------
+Testing: w=1 should be fast (<100ms) and still replicate asynchronously
+POST /messages with w=1...
+Response: w=1, ACKs=0, duration_ms=3ms
+Real elapsed time: 0.017s
+✅ w=1 confirmed
+✅ No ACKs from secondaries (as expected for w=1)
+✅ Fast response (<100ms)
+Checking logs for async replication...
+rl-master  | 2025-12-07 20:53:09,521 | INFO | Appended locally seq=24 msg=w1_test
+rl-master  | 2025-12-07 20:53:09,521 | INFO | w=1: Replicating to all secondaries asynchronously (not waiting for ACKs)
+rl-master  | 2025-12-07 20:53:09,525 | INFO | POST /messages completed w=1, acks=0 in 3 ms
+Checking immediate inconsistency...
+✅ Temporary inconsistency confirmed: master has it, 1 secondary(ies) missing
+Waiting 3 seconds for eventual consistency...
+✅ Eventual consistency: all nodes now have the message
+
+A3. WC-03: w=2 (master + one secondary)
+----------------------------------------
+POST /messages with w=2...
+Testing: w=2 should respond after 1st ACK (fast, ~0-10ms if fast secondary responds first)
+Response: w=2, ACKs=1, duration_ms=5ms
+Real elapsed time: 0.020s
+✅ w=2 confirmed
+✅ At least 1 ACK received (got 1)
+✅ Response time reasonable: 5ms
+Checking logs for timing details...
+rl-master  | 2025-12-07 20:53:09,447 | INFO | Write concern w=3 satisfied with 2 ACKs, responding (remaining replications continue)
+rl-master  | 2025-12-07 20:53:12,700 | INFO | Appended locally seq=25 msg=w2_test
+rl-master  | 2025-12-07 20:53:12,705 | INFO | Write concern w=2 satisfied with 1 ACKs, responding (remaining replications continue)
+
+==========================================
+B. Eventual Consistency & Async Replication
+==========================================
+
+B1. EV-01: Controlled inconsistency window
+----------------------------------------
+Sending 3 messages with w=1 quickly...
+Immediately checking messages...
+Master: ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test","w2_test","e1","e2","e3"]
+Secondary (port 8001): ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test","w2_test","e1","e2","e3"]
+Secondary (port 8002): ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test"]
+Waiting 3 seconds for eventual consistency...
+After wait:
+Master: ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test","w2_test","e1","e2","e3"]
+Secondary (port 8001): ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test","w2_test","e1","e2","e3"]
+Secondary (port 8002): ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test","w2_test","e1","e2","e3"]
+✅ Eventual consistency achieved
+
+B2. EV-02: Mixed write concerns eventually align
+----------------------------------------
+Sending mixed w values...
+Waiting for all replication...
+Checking final state...
+Master: ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test","w2_test","e1","e2","e3","mix1","mix2","mix3"]
+Secondary (port 8001): ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test","w2_test","e1","e2","e3","mix1","mix2","mix3"]
+Secondary (port 8002): ["smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","smoke","pytest","test message 1","blocking test","message 2","message 3","message 4","delay test","test message 1","blocking test","message 2","message 3","message 4","delay test","default_w","w1_test","w2_test","e1","e2","e3","mix1","mix2","mix3"]
+✅ All nodes eventually aligned
+
+==========================================
+C. Deduplication & Total Ordering
+==========================================
+
+C1. DED-01: Secondary deduplicates same seq
+----------------------------------------
+Testing deduplication on secondary (port 8001)...
+Sending same message twice via master (simulating retry)...
+Occurrences of 'dup_test' on secondary: 1
+✅ Deduplication working: message appears exactly once
+
+C2. ORD-01: Global total ordering
+----------------------------------------
+Sending 5 messages with mixed w values...
+Waiting for all replication...
+Checking ordering across all nodes...
+Master order: smoke,pytest,test message 1,blocking test,message 2,message 3,message 4,delay test,smoke,pytest,test message 1,blocking test,message 2,message 3,message 4,delay test,test message 1,blocking test,message 2,message 3,message 4,delay test,default_w,w1_test,w2_test,e1,e2,e3,mix1,mix2,mix3,dup_test,ord1,ord2,ord3,ord4,ord5
+Secondary (port 8001) order: smoke,pytest,test message 1,blocking test,message 2,message 3,message 4,delay test,smoke,pytest,test message 1,blocking test,message 2,message 3,message 4,delay test,test message 1,blocking test,message 2,message 3,message 4,delay test,default_w,w1_test,w2_test,e1,e2,e3,mix1,mix2,mix3,dup_test,ord1,ord2,ord3,ord4,ord5
+Secondary (port 8002) order: smoke,pytest,test message 1,blocking test,message 2,message 3,message 4,delay test,smoke,pytest,test message 1,blocking test,message 2,message 3,message 4,delay test,test message 1,blocking test,message 2,message 3,message 4,delay test,default_w,w1_test,w2_test,e1,e2,e3,mix1,mix2,mix3,dup_test,ord1,ord2,ord3,ord4,ord5
+✅ Total ordering preserved across all nodes
+
+==========================================
+D. Error Handling
+==========================================
+
+D1. ERR-01: Invalid write concern rejected
+----------------------------------------
+Testing w=0 (invalid)...
+✅ w=0 correctly rejected with HTTP 400
+Testing w too large...
+✅ w=4 correctly rejected with HTTP 400
+
+D2. ERR-02: Secondary failure when w cannot be satisfied
+----------------------------------------
+⚠️  Manual test: Stop a secondary and try w=3
+   docker compose stop secondary2
+   Then POST with w=3 should fail with 502
+
+D3. ERR-03: w=1 still succeeds with secondary failure
+----------------------------------------
+⚠️  Manual test: With secondary stopped, w=1 should succeed
+
+==========================================
+E. Additional Timing & Verification Tests
+==========================================
+
+E1. Verify w=1 timing (should be <10ms)
+----------------------------------------
+Testing w=1 response time...
+Response duration_ms: 1ms
+Real elapsed time: 0.014s
+✅ w=1 is fast: 1ms
+
+E2. Verify w=2 timing (should respond after 1st ACK)
+----------------------------------------
+Testing w=2 response time (should respond after 1st ACK, ~0-10ms if fast secondary responds first)...
+Response: duration_ms=4ms, ACKs=1
+Real elapsed time: 0.016s
+Checking logs for timing details...
+rl-master  | 2025-12-07 20:53:28,135 | INFO | Write concern w=3 satisfied with 2 ACKs, responding (remaining replications continue)
+rl-master  | 2025-12-07 20:53:33,247 | INFO | Appended locally seq=39 msg=w2_timing_verify
+rl-master  | 2025-12-07 20:53:33,252 | INFO | Write concern w=2 satisfied with 1 ACKs, responding (remaining replications continue)
+✅ Got 1 ACK(s) (w=2 needs 1)
+
+==========================================
+Test Summary
+==========================================
+✅ Write concern semantics tested
+✅ Eventual consistency verified
+✅ Deduplication checked
+✅ Total ordering verified
+✅ Error handling tested
+
+For full concurrency tests, run: python3 test_iteration2_concurrent.py
+

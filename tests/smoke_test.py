@@ -127,37 +127,49 @@ def test_eventual_consistency():
     _post(f"{MASTER}/messages", {"msg": unique_msg, "w": 1})
 
     # Master should have the message immediately
-    m = _get(f"{MASTER}/messages")["messages"]
-    assert unique_msg in m, "Master should have the message"
+    master_msgs = _get(f"{MASTER}/messages")["messages"]
+    assert unique_msg in master_msgs, "Master should have the message"
 
-    # Find secondaries configured with artificial delay
+    # Discover delayed secondaries and track max delay
     delayed_secondaries = []
-    for u in SECONDARIES:
+    max_delay = 0
+    for sec_url in SECONDARIES:
         try:
-            health_info = _get(f"{u}/health")
-            if health_info.get("delay_ms", 0) > 0:
-                delayed_secondaries.append(u)
+            health_info = _get(f"{sec_url}/health")
+            delay = health_info.get("delay_ms", 0)
+            if delay > 0:
+                delayed_secondaries.append(sec_url)
+            max_delay = max(max_delay, delay)
         except Exception:
             pass
 
-    # Immediately check secondaries
+    # Immediately check secondaries for temporary inconsistency
     missing_count = 0
-    for u in SECONDARIES:
-        s = _get(f"{u}/messages")["messages"]
-        if unique_msg not in s:
+    for sec_url in SECONDARIES:
+        sec_msgs = _get(f"{sec_url}/messages")["messages"]
+        if unique_msg not in sec_msgs:
             missing_count += 1
 
-    # If at least one secondary is delayed, we expect at least one miss initially
+    # If at least one secondary is delayed, we expect at least one to miss
+    # the message initially. This demonstrates temporary inconsistency.
     if delayed_secondaries:
         assert (
             missing_count >= 1
         ), f"Expected at least one delayed secondary to miss the message initially, got {missing_count}"
-    # Otherwise (no artificial delay), we don't assert anything about the initial state
 
-    # Wait for async replication to complete
-    time.sleep(2)
+    # If there are no delayed secondaries, we don't assert anything
+    # about the initial state (no artificial inconsistency).
+
+    # Wait long enough for async replication to complete
+    if max_delay > 0:
+        time.sleep(max_delay / 1000.0 + 1)
+    else:
+        time.sleep(2)
 
     # After waiting, all secondaries should have the message
-    for u in SECONDARIES:
-        s = _get(f"{u}/messages")["messages"]
-        assert unique_msg in s, f"Secondary {u} should eventually have the message after async replication"
+    for sec_url in SECONDARIES:
+        sec_msgs = _get(f"{sec_url}/messages")["messages"]
+        assert unique_msg in sec_msgs, (
+            f"Secondary {sec_url} should eventually have the message "
+            "after async replication"
+        )

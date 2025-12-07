@@ -1,0 +1,34 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.5, pytest-8.3.4, pluggy-1.5.0 -- /Volumes/ExternalSSDMini/opt/anaconda3/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/pavloskorodziievskyi/Documents/replicated-log-python
+plugins: anyio-4.7.0
+collecting ... collected 25 items
+
+tests/test_iteration2.py::TestWriteConcern::test_wc01_default_write_concern PASSED [  4%]
+tests/test_iteration2.py::TestWriteConcern::test_wc02_w1_fast PASSED     [  8%]
+tests/test_iteration2.py::TestWriteConcern::test_wc03_w2_one_secondary PASSED [ 12%]
+tests/test_iteration2.py::TestWriteConcern::test_wc04_w3_two_secondaries PASSED [ 16%]
+tests/test_iteration2.py::TestWriteConcern::test_wc05_w_n_all_secondaries PASSED [ 20%]
+tests/test_iteration2.py::TestWriteConcern::test_wc06_w1_no_acks_waiting PASSED [ 24%]
+tests/test_iteration2.py::TestWriteConcern::test_wc07_w2_exactly_one_ack PASSED [ 28%]
+tests/test_iteration2.py::TestEventualConsistency::test_ev01_inconsistency_window PASSED [ 32%]
+tests/test_iteration2.py::TestEventualConsistency::test_ev02_mixed_write_concerns_align PASSED [ 36%]
+tests/test_iteration2.py::TestEventualConsistency::test_ev03_temporary_different_lists PASSED [ 40%]
+tests/test_iteration2.py::TestEventualConsistency::test_ev04_delayed_secondary_catches_up PASSED [ 44%]
+tests/test_iteration2.py::TestDeduplication::test_ded01_secondary_deduplicates PASSED [ 48%]
+tests/test_iteration2.py::TestDeduplication::test_ded02_direct_replicate_dedup PASSED [ 52%]
+tests/test_iteration2.py::TestDeduplication::test_ded03_multiple_duplicate_attempts PASSED [ 56%]
+tests/test_iteration2.py::TestDeduplication::test_ded04_deduplication_preserves_ordering PASSED [ 60%]
+tests/test_iteration2.py::TestDeduplication::test_ord01_total_ordering PASSED [ 64%]
+tests/test_iteration2.py::TestDeduplication::test_ord02_ordering_with_delays PASSED [ 68%]
+tests/test_iteration2.py::TestDeduplication::test_ord03_ordering_with_mixed_w PASSED [ 72%]
+tests/test_iteration2.py::TestDeduplication::test_ord04_ordering_after_out_of_order_replication PASSED [ 76%]
+tests/test_iteration2.py::TestErrorHandling::test_err01_invalid_write_concern PASSED [ 80%]
+tests/test_iteration2.py::TestErrorHandling::test_err02_secondary_failure_w_not_satisfied PASSED [ 84%]
+tests/test_iteration2.py::TestErrorHandling::test_err03_secondary_failure_w1_still_succeeds PASSED [ 88%]
+tests/test_iteration2.py::TestTiming::test_timing_w1_fast PASSED         [ 92%]
+tests/test_iteration2.py::TestTiming::test_timing_w2_responds_after_first_ack PASSED [ 96%]
+tests/test_iteration2.py::TestConcurrency::test_con01_concurrent_posts_preserve_uniqueness PASSED [100%]
+
+======================== 25 passed in 68.96s (0:01:08) =========================

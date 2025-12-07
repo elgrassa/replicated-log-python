@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.5, pytest-8.3.4, pluggy-1.5.0 -- /Volumes/ExternalSSDMini/opt/anaconda3/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/pavloskorodziievskyi/Documents/replicated-log-python
+plugins: anyio-4.7.0
+collecting ... collected 3 items
+
+tests/smoke_test.py::test_write_concern_w1 PASSED                        [ 33%]
+tests/smoke_test.py::test_write_concern_w2 PASSED                        [ 66%]
+tests/smoke_test.py::test_eventual_consistency PASSED                    [100%]
+
+============================== 3 passed in 2.11s ===============================
