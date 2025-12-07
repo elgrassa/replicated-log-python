@@ -9,4 +9,4 @@ tests/smoke_test.py::test_write_concern_w1 PASSED                        [ 33%]
 tests/smoke_test.py::test_write_concern_w2 PASSED                        [ 66%]
 tests/smoke_test.py::test_eventual_consistency PASSED                    [100%]
 
-============================== 3 passed in 2.61s ===============================
+============================== 3 passed in 2.60s ===============================

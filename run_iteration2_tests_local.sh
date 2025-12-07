@@ -18,8 +18,8 @@ fi
 if ! docker compose ps | grep -q "Up"; then
   echo "⚠️  Docker services are not running."
   echo "Starting services..."
-  export NUM_SECONDARIES=${NUM_SECONDARIES:-3}
-  export SECONDARY_DELAYS=${SECONDARY_DELAYS:-"0,500,1500"}
+  export NUM_SECONDARIES=${NUM_SECONDARIES:-2}
+  export SECONDARY_DELAYS=${SECONDARY_DELAYS:-"0,500"}
   python3 generate_compose.py
   docker compose up -d
   echo "Waiting for services to be ready..."

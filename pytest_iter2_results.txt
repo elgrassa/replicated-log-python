@@ -22,4 +22,12 @@ tests/test_iteration2.py::TestDeduplication::test_ded03_multiple_duplicate_attem
 tests/test_iteration2.py::TestDeduplication::test_ded04_deduplication_preserves_ordering PASSED [ 62%]
 tests/test_iteration2.py::TestDeduplication::test_ord01_total_ordering PASSED [ 66%]
 tests/test_iteration2.py::TestDeduplication::test_ord02_ordering_with_delays PASSED [ 70%]
-tests/test_iteration2.py::TestDeduplication::test_ord03_ordering_with_mixed_w 
+tests/test_iteration2.py::TestDeduplication::test_ord03_ordering_with_mixed_w PASSED [ 75%]
+tests/test_iteration2.py::TestDeduplication::test_ord04_ordering_after_out_of_order_replication PASSED [ 79%]
+tests/test_iteration2.py::TestErrorHandling::test_err01_invalid_write_concern PASSED [ 83%]
+tests/test_iteration2.py::TestErrorHandling::test_err03_secondary_failure_w1_still_succeeds PASSED [ 87%]
+tests/test_iteration2.py::TestTiming::test_timing_w1_fast PASSED         [ 91%]
+tests/test_iteration2.py::TestTiming::test_timing_w2_responds_after_first_ack PASSED [ 95%]
+tests/test_iteration2.py::TestConcurrency::test_con01_concurrent_posts_preserve_uniqueness PASSED [100%]
+
+======================== 24 passed in 62.57s (0:01:02) =========================
