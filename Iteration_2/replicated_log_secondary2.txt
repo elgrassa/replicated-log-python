@@ -1,0 +1,797 @@
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 20:39:52,608 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.3:8001
+rl-secondary-2  | 2025-12-07 20:39:52,608 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 20:39:58,013 | INFO | 192.168.65.1 - - [07/Dec/2025 20:39:58] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:39:58,372 | INFO | 192.168.65.1 - - [07/Dec/2025 20:39:58] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:39:58,384 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:39:59,885 | INFO | Replicated seq=1 msg=smoke (pos=0)
+rl-secondary-2  | 2025-12-07 20:39:59,885 | INFO | 172.18.0.4 - - [07/Dec/2025 20:39:59] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:39:59,943 | INFO | 192.168.65.1 - - [07/Dec/2025 20:39:59] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:00,462 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:00] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:00,467 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:01,971 | INFO | Replicated seq=2 msg=pytest (pos=1)
+rl-secondary-2  | 2025-12-07 20:40:01,973 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:01,982 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:01] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:01,990 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:01] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:02,492 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:02] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:02,499 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:02] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:02,525 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:04,030 | INFO | Replicated seq=3 msg=test message 1 (pos=2)
+rl-secondary-2  | 2025-12-07 20:40:04,031 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:04,082 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:04] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:04,096 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:05,602 | INFO | Replicated seq=4 msg=blocking test (pos=3)
+rl-secondary-2  | 2025-12-07 20:40:05,603 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:05] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:05,626 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:07,131 | INFO | Replicated seq=5 msg=message 2 (pos=4)
+rl-secondary-2  | 2025-12-07 20:40:07,132 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:07] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:07,455 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:08,964 | INFO | Replicated seq=6 msg=message 3 (pos=5)
+rl-secondary-2  | 2025-12-07 20:40:08,965 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:08] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:09,294 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:10,798 | INFO | Replicated seq=7 msg=message 4 (pos=6)
+rl-secondary-2  | 2025-12-07 20:40:10,799 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:10] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:11,142 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:11] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:11,158 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:12,659 | INFO | Replicated seq=8 msg=delay test (pos=7)
+rl-secondary-2  | 2025-12-07 20:40:12,660 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:12] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:12,906 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:12] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:13,314 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:13] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:13,329 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:14,833 | INFO | Replicated seq=9 msg=smoke (pos=8)
+rl-secondary-2  | 2025-12-07 20:40:14,834 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:14] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:14,895 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:14] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:15,079 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:15] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:15,085 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:16,591 | INFO | Replicated seq=10 msg=pytest (pos=9)
+rl-secondary-2  | 2025-12-07 20:40:16,594 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:16] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:16,605 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:16] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:16,617 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:16] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:16,780 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:16] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:16,788 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:16] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:16,812 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:18,314 | INFO | Replicated seq=11 msg=test message 1 (pos=10)
+rl-secondary-2  | 2025-12-07 20:40:18,315 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:18] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:18,369 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:18] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:18,384 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:19,889 | INFO | Replicated seq=12 msg=blocking test (pos=11)
+rl-secondary-2  | 2025-12-07 20:40:19,890 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:19] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:19,930 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:21,433 | INFO | Replicated seq=13 msg=message 2 (pos=12)
+rl-secondary-2  | 2025-12-07 20:40:21,434 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:21] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:21,757 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:23,263 | INFO | Replicated seq=14 msg=message 3 (pos=13)
+rl-secondary-2  | 2025-12-07 20:40:23,265 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:23] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:23,597 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:25,101 | INFO | Replicated seq=15 msg=message 4 (pos=14)
+rl-secondary-2  | 2025-12-07 20:40:25,102 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:25] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:25,462 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:25] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:25,481 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:26,984 | INFO | Replicated seq=16 msg=delay test (pos=15)
+rl-secondary-2  | 2025-12-07 20:40:26,985 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:26] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:27,251 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:27] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:32,584 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:32] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:32,592 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:32] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:32,615 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:34,117 | INFO | Replicated seq=17 msg=test message 1 (pos=16)
+rl-secondary-2  | 2025-12-07 20:40:34,117 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:34] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:34,170 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:34] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:34,185 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:35,689 | INFO | Replicated seq=18 msg=blocking test (pos=17)
+rl-secondary-2  | 2025-12-07 20:40:35,689 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:35] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:35,713 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:37,219 | INFO | Replicated seq=19 msg=message 2 (pos=18)
+rl-secondary-2  | 2025-12-07 20:40:37,220 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:37] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:37,550 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:39,055 | INFO | Replicated seq=20 msg=message 3 (pos=19)
+rl-secondary-2  | 2025-12-07 20:40:39,055 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:39] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:39,382 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:40,883 | INFO | Replicated seq=21 msg=message 4 (pos=20)
+rl-secondary-2  | 2025-12-07 20:40:40,884 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:40] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:41,243 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:41] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:41,262 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:40:42,764 | INFO | Replicated seq=22 msg=delay test (pos=21)
+rl-secondary-2  | 2025-12-07 20:40:42,764 | INFO | 172.18.0.4 - - [07/Dec/2025 20:40:42] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:40:43,052 | INFO | 192.168.65.1 - - [07/Dec/2025 20:40:43] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:06,887 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:06] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:06,917 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:06] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:07,941 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:09,444 | INFO | Replicated seq=23 msg=default_w (pos=22)
+rl-secondary-2  | 2025-12-07 20:53:09,445 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:09] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:09,508 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:09] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:09,527 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:09,637 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:09] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:11,033 | INFO | Replicated seq=24 msg=w1_test (pos=23)
+rl-secondary-2  | 2025-12-07 20:53:11,034 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:11] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:12,684 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:12] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:12,703 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:12,803 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:12,813 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:12,823 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:13,367 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:13] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:14,210 | INFO | Replicated seq=25 msg=w2_test (pos=24)
+rl-secondary-2  | 2025-12-07 20:53:14,210 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:14] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:14,308 | INFO | Replicated seq=26 msg=e1 (pos=25)
+rl-secondary-2  | 2025-12-07 20:53:14,309 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:14] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:14,314 | INFO | Replicated seq=27 msg=e2 (pos=26)
+rl-secondary-2  | 2025-12-07 20:53:14,314 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:14] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:14,325 | INFO | Replicated seq=28 msg=e3 (pos=27)
+rl-secondary-2  | 2025-12-07 20:53:14,325 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:14] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:16,407 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:16] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:16,422 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:16,741 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:17,065 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:17,927 | INFO | Replicated seq=29 msg=mix1 (pos=28)
+rl-secondary-2  | 2025-12-07 20:53:17,928 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:17] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:18,248 | INFO | Replicated seq=30 msg=mix2 (pos=29)
+rl-secondary-2  | 2025-12-07 20:53:18,249 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:18] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:18,569 | INFO | Replicated seq=31 msg=mix3 (pos=30)
+rl-secondary-2  | 2025-12-07 20:53:18,569 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:18] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:22,618 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:22] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:22,635 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:24,141 | INFO | Replicated seq=32 msg=dup_test (pos=31)
+rl-secondary-2  | 2025-12-07 20:53:24,142 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:24] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:24,182 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:24,411 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:25,688 | INFO | Replicated seq=33 msg=ord1 (pos=32)
+rl-secondary-2  | 2025-12-07 20:53:25,689 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:25] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:25,915 | INFO | Replicated seq=34 msg=ord2 (pos=33)
+rl-secondary-2  | 2025-12-07 20:53:25,917 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:25] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:26,159 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:26,399 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:26,629 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:27,665 | INFO | Replicated seq=35 msg=ord3 (pos=34)
+rl-secondary-2  | 2025-12-07 20:53:27,665 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:27] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:27,900 | INFO | Replicated seq=36 msg=ord4 (pos=35)
+rl-secondary-2  | 2025-12-07 20:53:27,901 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:27] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:28,132 | INFO | Replicated seq=37 msg=ord5 (pos=36)
+rl-secondary-2  | 2025-12-07 20:53:28,133 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:28] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:33,185 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:33] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:33,229 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:33,251 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:34,734 | INFO | Replicated seq=38 msg=w1_timing_verify (pos=37)
+rl-secondary-2  | 2025-12-07 20:53:34,735 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:34] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:34,754 | INFO | Replicated seq=39 msg=w2_timing_verify (pos=38)
+rl-secondary-2  | 2025-12-07 20:53:34,755 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:34] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:55,132 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:56,638 | INFO | Replicated seq=40 msg=default_w_1765140835121 (pos=39)
+rl-secondary-2  | 2025-12-07 20:53:56,639 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:56] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:57,662 | INFO | 192.168.65.1 - - [07/Dec/2025 20:53:57] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:57,669 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:57,676 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:57,683 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:53:59,174 | INFO | Replicated seq=41 msg=w1_fast_1765140837664 (pos=40)
+rl-secondary-2  | 2025-12-07 20:53:59,175 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:59] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:59,179 | INFO | Replicated seq=42 msg=w2_1765140837672 (pos=41)
+rl-secondary-2  | 2025-12-07 20:53:59,179 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:59] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:59,184 | INFO | Replicated seq=43 msg=w3_1765140837679 (pos=42)
+rl-secondary-2  | 2025-12-07 20:53:59,185 | INFO | 172.18.0.4 - - [07/Dec/2025 20:53:59] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:53:59,198 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:00,700 | INFO | Replicated seq=44 msg=w_max_1765140839191 (pos=43)
+rl-secondary-2  | 2025-12-07 20:54:00,700 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:02,726 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:02] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:02,734 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:02,744 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:02,753 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:02,867 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:02,974 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:03,597 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:03] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:04,238 | INFO | Replicated seq=45 msg=w1_no_acks_1765140842729 (pos=44)
+rl-secondary-2  | 2025-12-07 20:54:04,239 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:04,245 | INFO | Replicated seq=46 msg=w2_one_ack_1765140842740 (pos=45)
+rl-secondary-2  | 2025-12-07 20:54:04,245 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:04,254 | INFO | Replicated seq=47 msg=ev1_1765140842748_0 (pos=46)
+rl-secondary-2  | 2025-12-07 20:54:04,255 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:04,372 | INFO | Replicated seq=48 msg=ev1_1765140842748_1 (pos=47)
+rl-secondary-2  | 2025-12-07 20:54:04,373 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:04,476 | INFO | Replicated seq=49 msg=ev1_1765140842748_2 (pos=48)
+rl-secondary-2  | 2025-12-07 20:54:04,477 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:07,622 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:07] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:07,631 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:07,943 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:08,259 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:09,133 | INFO | Replicated seq=50 msg=mix_1765140847625_1 (pos=49)
+rl-secondary-2  | 2025-12-07 20:54:09,134 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:09] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:09,447 | INFO | Replicated seq=51 msg=mix_1765140847625_2 (pos=50)
+rl-secondary-2  | 2025-12-07 20:54:09,448 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:09] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:09,765 | INFO | Replicated seq=52 msg=mix_1765140847625_3 (pos=51)
+rl-secondary-2  | 2025-12-07 20:54:09,766 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:09] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:13,790 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:13] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:13,800 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:13,809 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:13] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:15,307 | INFO | Replicated seq=53 msg=temp_diff_1765140853794 (pos=52)
+rl-secondary-2  | 2025-12-07 20:54:15,308 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:15] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:17,830 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:17] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:17,840 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:17,954 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:18,065 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:19,345 | INFO | Replicated seq=54 msg=delayed_1765140857832_0 (pos=53)
+rl-secondary-2  | 2025-12-07 20:54:19,346 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:19] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:19,457 | INFO | Replicated seq=55 msg=delayed_1765140857832_1 (pos=54)
+rl-secondary-2  | 2025-12-07 20:54:19,458 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:19] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:19,569 | INFO | Replicated seq=56 msg=delayed_1765140857832_2 (pos=55)
+rl-secondary-2  | 2025-12-07 20:54:19,570 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:19] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:22,192 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:22] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:22,201 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:23,703 | INFO | Replicated seq=57 msg=dedup_test_1765140862195 (pos=56)
+rl-secondary-2  | 2025-12-07 20:54:23,704 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:23] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:24,720 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:24] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:24,753 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:24,965 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:26,259 | INFO | Replicated seq=58 msg=ord_1765140864753_1 (pos=57)
+rl-secondary-2  | 2025-12-07 20:54:26,260 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:26] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:26,469 | INFO | Replicated seq=59 msg=ord_1765140864753_2 (pos=58)
+rl-secondary-2  | 2025-12-07 20:54:26,469 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:26] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:26,687 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:26,902 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:27,116 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:28,191 | INFO | Replicated seq=60 msg=ord_1765140864753_3 (pos=59)
+rl-secondary-2  | 2025-12-07 20:54:28,192 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:28] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:28,408 | INFO | Replicated seq=61 msg=ord_1765140864753_4 (pos=60)
+rl-secondary-2  | 2025-12-07 20:54:28,409 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:28] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:28,621 | INFO | Replicated seq=62 msg=ord_1765140864753_5 (pos=61)
+rl-secondary-2  | 2025-12-07 20:54:28,622 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:28] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:33,852 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:33] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:33,861 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:33,980 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:34,098 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:35,364 | INFO | Replicated seq=63 msg=delay_ord_1765140873858_1 (pos=62)
+rl-secondary-2  | 2025-12-07 20:54:35,365 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:35] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:35,482 | INFO | Replicated seq=64 msg=delay_ord_1765140873858_2 (pos=63)
+rl-secondary-2  | 2025-12-07 20:54:35,483 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:35] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:35,602 | INFO | Replicated seq=65 msg=delay_ord_1765140873858_3 (pos=64)
+rl-secondary-2  | 2025-12-07 20:54:35,603 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:35] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:38,223 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:38] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:38,232 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:38,445 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:38,662 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:39,734 | INFO | Replicated seq=66 msg=mixed_1765140878229_1 (pos=65)
+rl-secondary-2  | 2025-12-07 20:54:39,735 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:39] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:39,949 | INFO | Replicated seq=67 msg=mixed_1765140878229_2 (pos=66)
+rl-secondary-2  | 2025-12-07 20:54:39,950 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:39] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:40,168 | INFO | Replicated seq=68 msg=mixed_1765140878229_3 (pos=67)
+rl-secondary-2  | 2025-12-07 20:54:40,169 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:40] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:40,388 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:41,892 | INFO | Replicated seq=69 msg=mixed_1765140878229_4 (pos=68)
+rl-secondary-2  | 2025-12-07 20:54:41,893 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:41] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:44,608 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:44] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:44,618 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:44,731 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:44,851 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:46,121 | INFO | Replicated seq=70 msg=ooo_1765140884614_1 (pos=69)
+rl-secondary-2  | 2025-12-07 20:54:46,122 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:46] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:46,235 | INFO | Replicated seq=71 msg=ooo_1765140884614_2 (pos=70)
+rl-secondary-2  | 2025-12-07 20:54:46,236 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:46] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:46,355 | INFO | Replicated seq=72 msg=ooo_1765140884614_3 (pos=71)
+rl-secondary-2  | 2025-12-07 20:54:46,356 | INFO | 172.18.0.4 - - [07/Dec/2025 20:54:46] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:54:48,975 | INFO | 192.168.65.1 - - [07/Dec/2025 20:54:48] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 20:54:52,519 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.3:8001
+rl-secondary-2  | 2025-12-07 20:54:52,519 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 20:54:57,980 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.3:8001
+rl-secondary-2  | 2025-12-07 20:54:57,980 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 20:54:59,952 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,961 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,980 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,984 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,991 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,993 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,994 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,995 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,995 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,996 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,997 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:54:59,998 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:55:01,457 | INFO | Replicated seq=75 msg=timing_w1_1765140899941 (pos=0)
+rl-secondary-2  | 2025-12-07 20:55:01,458 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,462 | INFO | Replicated seq=76 msg=timing_w2_1765140899955 (pos=1)
+rl-secondary-2  | 2025-12-07 20:55:01,462 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,482 | INFO | Replicated seq=77 msg=concurrent_1765140899966_1 (pos=2)
+rl-secondary-2  | 2025-12-07 20:55:01,482 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,485 | INFO | Replicated seq=78 msg=concurrent_1765140899966_2 (pos=3)
+rl-secondary-2  | 2025-12-07 20:55:01,485 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,493 | INFO | Replicated seq=79 msg=concurrent_1765140899966_0 (pos=4)
+rl-secondary-2  | 2025-12-07 20:55:01,493 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,495 | INFO | Replicated seq=84 msg=concurrent_1765140899966_6 (pos=5)
+rl-secondary-2  | 2025-12-07 20:55:01,495 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,495 | INFO | Replicated seq=83 msg=concurrent_1765140899966_8 (pos=5)
+rl-secondary-2  | 2025-12-07 20:55:01,495 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,496 | INFO | Replicated seq=86 msg=concurrent_1765140899966_9 (pos=7)
+rl-secondary-2  | 2025-12-07 20:55:01,496 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,497 | INFO | Replicated seq=80 msg=concurrent_1765140899966_3 (pos=5)
+rl-secondary-2  | 2025-12-07 20:55:01,498 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,498 | INFO | Replicated seq=81 msg=concurrent_1765140899966_4 (pos=6)
+rl-secondary-2  | 2025-12-07 20:55:01,498 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,499 | INFO | Replicated seq=85 msg=concurrent_1765140899966_7 (pos=9)
+rl-secondary-2  | 2025-12-07 20:55:01,499 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:01,499 | INFO | Replicated seq=82 msg=concurrent_1765140899966_5 (pos=7)
+rl-secondary-2  | 2025-12-07 20:55:01,499 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:04,023 | INFO | 192.168.65.1 - - [07/Dec/2025 20:55:04] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:25,783 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:55:25,788 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:55:25,794 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 20:55:25,800 | INFO | 192.168.65.1 - - [07/Dec/2025 20:55:25] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:25,803 | INFO | 192.168.65.1 - - [07/Dec/2025 20:55:25] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:27,287 | INFO | Replicated seq=87 msg=w1_test (pos=12)
+rl-secondary-2  | 2025-12-07 20:55:27,288 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:27] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:27,289 | INFO | Replicated seq=88 msg=w2_test (pos=13)
+rl-secondary-2  | 2025-12-07 20:55:27,290 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:27] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:27,295 | INFO | Replicated seq=89 msg=eventual_test_1765140925791 (pos=14)
+rl-secondary-2  | 2025-12-07 20:55:27,296 | INFO | 172.18.0.4 - - [07/Dec/2025 20:55:27] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 20:55:27,824 | INFO | 192.168.65.1 - - [07/Dec/2025 20:55:27] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:24,974 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:24] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:25,001 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:25] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:26,031 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:27,534 | INFO | Replicated seq=90 msg=default_w (pos=15)
+rl-secondary-2  | 2025-12-07 21:20:27,536 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:27] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:27,601 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:27] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:27,619 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:27,725 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:27] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:29,124 | INFO | Replicated seq=91 msg=w1_test (pos=16)
+rl-secondary-2  | 2025-12-07 21:20:29,125 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:29] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:30,763 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:30] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:30,777 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:30,864 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:30,873 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:30,883 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:31,437 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:31] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:32,280 | INFO | Replicated seq=92 msg=w2_test (pos=17)
+rl-secondary-2  | 2025-12-07 21:20:32,280 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:32,369 | INFO | Replicated seq=93 msg=e1 (pos=18)
+rl-secondary-2  | 2025-12-07 21:20:32,370 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:32,374 | INFO | Replicated seq=94 msg=e2 (pos=19)
+rl-secondary-2  | 2025-12-07 21:20:32,375 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:32,385 | INFO | Replicated seq=95 msg=e3 (pos=20)
+rl-secondary-2  | 2025-12-07 21:20:32,386 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:34,487 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:34] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:34,500 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:34,834 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:35,172 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:36,002 | INFO | Replicated seq=96 msg=mix1 (pos=21)
+rl-secondary-2  | 2025-12-07 21:20:36,003 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:36] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:36,337 | INFO | Replicated seq=97 msg=mix2 (pos=22)
+rl-secondary-2  | 2025-12-07 21:20:36,339 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:36] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:36,677 | INFO | Replicated seq=98 msg=mix3 (pos=23)
+rl-secondary-2  | 2025-12-07 21:20:36,678 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:36] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:40,739 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:40] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:40,754 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:42,260 | INFO | Replicated seq=99 msg=dup_test (pos=24)
+rl-secondary-2  | 2025-12-07 21:20:42,261 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:42] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:42,311 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:42,541 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:43,817 | INFO | Replicated seq=100 msg=ord1 (pos=25)
+rl-secondary-2  | 2025-12-07 21:20:43,818 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:43] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:44,046 | INFO | Replicated seq=101 msg=ord2 (pos=26)
+rl-secondary-2  | 2025-12-07 21:20:44,047 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:44] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:44,288 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:44,525 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:44,760 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:45,793 | INFO | Replicated seq=102 msg=ord3 (pos=27)
+rl-secondary-2  | 2025-12-07 21:20:45,794 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:45] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:46,026 | INFO | Replicated seq=103 msg=ord4 (pos=28)
+rl-secondary-2  | 2025-12-07 21:20:46,027 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:46] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:46,266 | INFO | Replicated seq=104 msg=ord5 (pos=29)
+rl-secondary-2  | 2025-12-07 21:20:46,267 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:46] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:51,330 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:51] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:51,376 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:51,399 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:52,052 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:52,881 | INFO | Replicated seq=105 msg=w1_timing_verify (pos=30)
+rl-secondary-2  | 2025-12-07 21:20:52,882 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:52] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:52,900 | INFO | Replicated seq=106 msg=w2_timing_verify (pos=31)
+rl-secondary-2  | 2025-12-07 21:20:52,901 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:52] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:53,553 | INFO | Replicated seq=107 msg=default_w_1765142452041 (pos=32)
+rl-secondary-2  | 2025-12-07 21:20:53,553 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:53] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:54,576 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:54] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:54,585 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:54,594 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:54,602 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:56,090 | INFO | Replicated seq=108 msg=w1_fast_1765142454578 (pos=33)
+rl-secondary-2  | 2025-12-07 21:20:56,091 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:56] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:56,096 | INFO | Replicated seq=109 msg=w2_1765142454589 (pos=34)
+rl-secondary-2  | 2025-12-07 21:20:56,096 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:56] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:56,105 | INFO | Replicated seq=110 msg=w3_1765142454597 (pos=35)
+rl-secondary-2  | 2025-12-07 21:20:56,106 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:56] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:56,121 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:57,623 | INFO | Replicated seq=111 msg=w_max_1765142456112 (pos=36)
+rl-secondary-2  | 2025-12-07 21:20:57,624 | INFO | 172.18.0.4 - - [07/Dec/2025 21:20:57] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:59,653 | INFO | 192.168.65.1 - - [07/Dec/2025 21:20:59] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:20:59,661 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:59,670 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:59,678 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:59,805 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:20:59,922 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:00,542 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:00] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:01,167 | INFO | Replicated seq=112 msg=w1_no_acks_1765142459655 (pos=37)
+rl-secondary-2  | 2025-12-07 21:21:01,168 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:01,171 | INFO | Replicated seq=113 msg=w2_one_ack_1765142459666 (pos=38)
+rl-secondary-2  | 2025-12-07 21:21:01,172 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:01,178 | INFO | Replicated seq=114 msg=ev1_1765142459673_0 (pos=39)
+rl-secondary-2  | 2025-12-07 21:21:01,179 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:01,311 | INFO | Replicated seq=115 msg=ev1_1765142459673_1 (pos=40)
+rl-secondary-2  | 2025-12-07 21:21:01,312 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:01,425 | INFO | Replicated seq=116 msg=ev1_1765142459673_2 (pos=41)
+rl-secondary-2  | 2025-12-07 21:21:01,425 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:01] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:04,570 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:04] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:04,581 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:04,896 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:05,217 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:06,083 | INFO | Replicated seq=117 msg=mix_1765142464574_1 (pos=42)
+rl-secondary-2  | 2025-12-07 21:21:06,084 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:06] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:06,402 | INFO | Replicated seq=118 msg=mix_1765142464574_2 (pos=43)
+rl-secondary-2  | 2025-12-07 21:21:06,403 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:06] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:06,722 | INFO | Replicated seq=119 msg=mix_1765142464574_3 (pos=44)
+rl-secondary-2  | 2025-12-07 21:21:06,724 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:06] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:10,757 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:10] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:10,767 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:10,776 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:10] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:12,270 | INFO | Replicated seq=120 msg=temp_diff_1765142470760 (pos=45)
+rl-secondary-2  | 2025-12-07 21:21:12,271 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:12] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:14,793 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:14] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:14,801 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:14,917 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:15,036 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:16,303 | INFO | Replicated seq=121 msg=delayed_1765142474796_0 (pos=46)
+rl-secondary-2  | 2025-12-07 21:21:16,304 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:16] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:16,423 | INFO | Replicated seq=122 msg=delayed_1765142474796_1 (pos=47)
+rl-secondary-2  | 2025-12-07 21:21:16,424 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:16] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:16,541 | INFO | Replicated seq=123 msg=delayed_1765142474796_2 (pos=48)
+rl-secondary-2  | 2025-12-07 21:21:16,542 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:16] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:19,165 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:19] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:19,172 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:20,674 | INFO | Replicated seq=124 msg=dedup_test_1765142479167 (pos=49)
+rl-secondary-2  | 2025-12-07 21:21:20,675 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:21,694 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:21] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:21,765 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:21,972 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:23,271 | INFO | Replicated seq=125 msg=ord_1765142481759_1 (pos=50)
+rl-secondary-2  | 2025-12-07 21:21:23,272 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:23] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:23,477 | INFO | Replicated seq=126 msg=ord_1765142481759_2 (pos=51)
+rl-secondary-2  | 2025-12-07 21:21:23,478 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:23] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:23,706 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:23,923 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:24,136 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:25,210 | INFO | Replicated seq=127 msg=ord_1765142481759_3 (pos=52)
+rl-secondary-2  | 2025-12-07 21:21:25,211 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:25] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:25,424 | INFO | Replicated seq=128 msg=ord_1765142481759_4 (pos=53)
+rl-secondary-2  | 2025-12-07 21:21:25,425 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:25] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:25,642 | INFO | Replicated seq=129 msg=ord_1765142481759_5 (pos=54)
+rl-secondary-2  | 2025-12-07 21:21:25,642 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:25] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:30,876 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:30] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:30,885 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:31,005 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:31,126 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:32,391 | INFO | Replicated seq=130 msg=delay_ord_1765142490878_1 (pos=55)
+rl-secondary-2  | 2025-12-07 21:21:32,392 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:32,509 | INFO | Replicated seq=131 msg=delay_ord_1765142490878_2 (pos=56)
+rl-secondary-2  | 2025-12-07 21:21:32,510 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:32,632 | INFO | Replicated seq=132 msg=delay_ord_1765142490878_3 (pos=57)
+rl-secondary-2  | 2025-12-07 21:21:32,633 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:32] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:35,253 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:35] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:35,262 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:35,475 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:35,693 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:36,765 | INFO | Replicated seq=133 msg=mixed_1765142495256_1 (pos=58)
+rl-secondary-2  | 2025-12-07 21:21:36,766 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:36] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:36,980 | INFO | Replicated seq=134 msg=mixed_1765142495256_2 (pos=59)
+rl-secondary-2  | 2025-12-07 21:21:36,981 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:36] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:37,194 | INFO | Replicated seq=135 msg=mixed_1765142495256_3 (pos=60)
+rl-secondary-2  | 2025-12-07 21:21:37,195 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:37] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:37,414 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:38,919 | INFO | Replicated seq=136 msg=mixed_1765142495256_4 (pos=61)
+rl-secondary-2  | 2025-12-07 21:21:38,920 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:38] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:41,645 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:41] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:41,656 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:41,769 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:41,888 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:43,158 | INFO | Replicated seq=137 msg=ooo_1765142501648_1 (pos=62)
+rl-secondary-2  | 2025-12-07 21:21:43,159 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:43] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:43,273 | INFO | Replicated seq=138 msg=ooo_1765142501648_2 (pos=63)
+rl-secondary-2  | 2025-12-07 21:21:43,274 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:43] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:43,390 | INFO | Replicated seq=139 msg=ooo_1765142501648_3 (pos=64)
+rl-secondary-2  | 2025-12-07 21:21:43,392 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:43] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:46,015 | INFO | 192.168.65.1 - - [07/Dec/2025 21:21:46] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 21:21:49,542 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.3:8001
+rl-secondary-2  | 2025-12-07 21:21:49,542 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 21:21:54,987 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.3:8001
+rl-secondary-2  | 2025-12-07 21:21:54,987 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 21:21:56,952 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,958 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,972 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,973 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,975 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,978 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,985 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,986 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,987 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,989 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,990 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:56,991 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:21:58,458 | INFO | Replicated seq=142 msg=timing_w1_1765142516943 (pos=0)
+rl-secondary-2  | 2025-12-07 21:21:58,459 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,460 | INFO | Replicated seq=143 msg=timing_w2_1765142516953 (pos=1)
+rl-secondary-2  | 2025-12-07 21:21:58,460 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,473 | INFO | Replicated seq=146 msg=concurrent_1765142516960_3 (pos=2)
+rl-secondary-2  | 2025-12-07 21:21:58,474 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,475 | INFO | Replicated seq=144 msg=concurrent_1765142516960_4 (pos=2)
+rl-secondary-2  | 2025-12-07 21:21:58,475 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,476 | INFO | Replicated seq=147 msg=concurrent_1765142516960_1 (pos=4)
+rl-secondary-2  | 2025-12-07 21:21:58,477 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,479 | INFO | Replicated seq=145 msg=concurrent_1765142516960_0 (pos=3)
+rl-secondary-2  | 2025-12-07 21:21:58,479 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,486 | INFO | Replicated seq=148 msg=concurrent_1765142516960_6 (pos=6)
+rl-secondary-2  | 2025-12-07 21:21:58,486 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,486 | INFO | Replicated seq=149 msg=concurrent_1765142516960_2 (pos=7)
+rl-secondary-2  | 2025-12-07 21:21:58,487 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,488 | INFO | Replicated seq=152 msg=concurrent_1765142516960_8 (pos=8)
+rl-secondary-2  | 2025-12-07 21:21:58,488 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,490 | INFO | Replicated seq=151 msg=concurrent_1765142516960_7 (pos=8)
+rl-secondary-2  | 2025-12-07 21:21:58,490 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,491 | INFO | Replicated seq=150 msg=concurrent_1765142516960_5 (pos=8)
+rl-secondary-2  | 2025-12-07 21:21:58,491 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:21:58,492 | INFO | Replicated seq=153 msg=concurrent_1765142516960_9 (pos=11)
+rl-secondary-2  | 2025-12-07 21:21:58,492 | INFO | 172.18.0.4 - - [07/Dec/2025 21:21:58] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:22:01,010 | INFO | 192.168.65.1 - - [07/Dec/2025 21:22:01] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:22:01,452 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:22:01,456 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:22:01,462 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:22:01,467 | INFO | 192.168.65.1 - - [07/Dec/2025 21:22:01] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:22:01,470 | INFO | 192.168.65.1 - - [07/Dec/2025 21:22:01] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:22:02,956 | INFO | Replicated seq=154 msg=w1_test (pos=12)
+rl-secondary-2  | 2025-12-07 21:22:02,957 | INFO | 172.18.0.4 - - [07/Dec/2025 21:22:02] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:22:02,957 | INFO | Replicated seq=155 msg=w2_test (pos=13)
+rl-secondary-2  | 2025-12-07 21:22:02,958 | INFO | 172.18.0.4 - - [07/Dec/2025 21:22:02] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:22:02,963 | INFO | Replicated seq=156 msg=eventual_test_1765142521458 (pos=14)
+rl-secondary-2  | 2025-12-07 21:22:02,963 | INFO | 172.18.0.4 - - [07/Dec/2025 21:22:02] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:22:03,987 | INFO | 192.168.65.1 - - [07/Dec/2025 21:22:03] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:28:53,478 | INFO | 192.168.65.1 - - [07/Dec/2025 21:28:53] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:28:53,500 | INFO | 192.168.65.1 - - [07/Dec/2025 21:28:53] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:28:54,546 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:28:56,049 | INFO | Replicated seq=157 msg=default_w (pos=15)
+rl-secondary-2  | 2025-12-07 21:28:56,050 | INFO | 172.18.0.4 - - [07/Dec/2025 21:28:56] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:28:56,115 | INFO | 192.168.65.1 - - [07/Dec/2025 21:28:56] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:28:56,132 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:28:56,239 | INFO | 192.168.65.1 - - [07/Dec/2025 21:28:56] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:28:57,634 | INFO | Replicated seq=158 msg=w1_test (pos=16)
+rl-secondary-2  | 2025-12-07 21:28:57,636 | INFO | 172.18.0.4 - - [07/Dec/2025 21:28:57] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:28:59,295 | INFO | 192.168.65.1 - - [07/Dec/2025 21:28:59] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:28:59,314 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:28:59,412 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:28:59,422 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:28:59,432 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:28:59,988 | INFO | 192.168.65.1 - - [07/Dec/2025 21:28:59] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:00,820 | INFO | Replicated seq=159 msg=w2_test (pos=17)
+rl-secondary-2  | 2025-12-07 21:29:00,821 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:00,918 | INFO | Replicated seq=160 msg=e1 (pos=18)
+rl-secondary-2  | 2025-12-07 21:29:00,919 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:00,922 | INFO | Replicated seq=161 msg=e2 (pos=19)
+rl-secondary-2  | 2025-12-07 21:29:00,923 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:00,934 | INFO | Replicated seq=162 msg=e3 (pos=20)
+rl-secondary-2  | 2025-12-07 21:29:00,935 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:03,036 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:03] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:03,050 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:03,370 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:03,687 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:04,556 | INFO | Replicated seq=163 msg=mix1 (pos=21)
+rl-secondary-2  | 2025-12-07 21:29:04,557 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:04,871 | INFO | Replicated seq=164 msg=mix2 (pos=22)
+rl-secondary-2  | 2025-12-07 21:29:04,872 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:05,189 | INFO | Replicated seq=165 msg=mix3 (pos=23)
+rl-secondary-2  | 2025-12-07 21:29:05,190 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:05] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:09,246 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:09] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:09,260 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:10,766 | INFO | Replicated seq=166 msg=dup_test (pos=24)
+rl-secondary-2  | 2025-12-07 21:29:10,768 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:10] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:10,808 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:11,042 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:12,313 | INFO | Replicated seq=167 msg=ord1 (pos=25)
+rl-secondary-2  | 2025-12-07 21:29:12,314 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:12] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:12,546 | INFO | Replicated seq=168 msg=ord2 (pos=26)
+rl-secondary-2  | 2025-12-07 21:29:12,547 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:12] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:12,787 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:13,021 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:13,258 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:14,290 | INFO | Replicated seq=169 msg=ord3 (pos=27)
+rl-secondary-2  | 2025-12-07 21:29:14,292 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:14] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:14,527 | INFO | Replicated seq=170 msg=ord4 (pos=28)
+rl-secondary-2  | 2025-12-07 21:29:14,527 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:14] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:14,761 | INFO | Replicated seq=171 msg=ord5 (pos=29)
+rl-secondary-2  | 2025-12-07 21:29:14,762 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:14] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:19,817 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:19] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:19,858 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:19,880 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:20,146 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:21,359 | INFO | Replicated seq=172 msg=w1_timing_verify (pos=30)
+rl-secondary-2  | 2025-12-07 21:29:21,360 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:21] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:21,384 | INFO | Replicated seq=173 msg=w2_timing_verify (pos=31)
+rl-secondary-2  | 2025-12-07 21:29:21,384 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:21] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:21,652 | INFO | Replicated seq=174 msg=default_w_1765142960134 (pos=32)
+rl-secondary-2  | 2025-12-07 21:29:21,653 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:21] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:22,675 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:22] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:22,684 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:22,692 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:22,698 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:24,191 | INFO | Replicated seq=175 msg=w1_fast_1765142962678 (pos=33)
+rl-secondary-2  | 2025-12-07 21:29:24,191 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:24] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:24,194 | INFO | Replicated seq=176 msg=w2_1765142962689 (pos=34)
+rl-secondary-2  | 2025-12-07 21:29:24,194 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:24] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:24,200 | INFO | Replicated seq=177 msg=w3_1765142962695 (pos=35)
+rl-secondary-2  | 2025-12-07 21:29:24,201 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:24] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:24,210 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:25,715 | INFO | Replicated seq=178 msg=w_max_1765142964205 (pos=36)
+rl-secondary-2  | 2025-12-07 21:29:25,716 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:25] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:27,739 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:27] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:27,747 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:27,754 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:27,761 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:27,874 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:27,988 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:28,604 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:28] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:29,250 | INFO | Replicated seq=179 msg=w1_no_acks_1765142967743 (pos=37)
+rl-secondary-2  | 2025-12-07 21:29:29,251 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:29] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:29,255 | INFO | Replicated seq=180 msg=w2_one_ack_1765142967751 (pos=38)
+rl-secondary-2  | 2025-12-07 21:29:29,255 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:29] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:29,262 | INFO | Replicated seq=181 msg=ev1_1765142967758_0 (pos=39)
+rl-secondary-2  | 2025-12-07 21:29:29,262 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:29] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:29,376 | INFO | Replicated seq=182 msg=ev1_1765142967758_1 (pos=40)
+rl-secondary-2  | 2025-12-07 21:29:29,376 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:29] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:29,490 | INFO | Replicated seq=183 msg=ev1_1765142967758_2 (pos=41)
+rl-secondary-2  | 2025-12-07 21:29:29,490 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:29] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:32,626 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:32] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:32,636 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:32,951 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:33,265 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:34,142 | INFO | Replicated seq=184 msg=mix_1765142972630_1 (pos=42)
+rl-secondary-2  | 2025-12-07 21:29:34,143 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:34] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:34,456 | INFO | Replicated seq=185 msg=mix_1765142972630_2 (pos=43)
+rl-secondary-2  | 2025-12-07 21:29:34,456 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:34] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:34,769 | INFO | Replicated seq=186 msg=mix_1765142972630_3 (pos=44)
+rl-secondary-2  | 2025-12-07 21:29:34,769 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:34] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:38,796 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:38] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:38,809 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:38,828 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:38] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:40,315 | INFO | Replicated seq=187 msg=temp_diff_1765142978801 (pos=45)
+rl-secondary-2  | 2025-12-07 21:29:40,316 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:40] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:42,852 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:42] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:42,859 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:42,972 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:43,095 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:44,362 | INFO | Replicated seq=188 msg=delayed_1765142982854_0 (pos=46)
+rl-secondary-2  | 2025-12-07 21:29:44,363 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:44] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:44,474 | INFO | Replicated seq=189 msg=delayed_1765142982854_1 (pos=47)
+rl-secondary-2  | 2025-12-07 21:29:44,475 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:44] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:44,597 | INFO | Replicated seq=190 msg=delayed_1765142982854_2 (pos=48)
+rl-secondary-2  | 2025-12-07 21:29:44,597 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:44] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:47,213 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:47] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:47,219 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:48,726 | INFO | Replicated seq=191 msg=dedup_test_1765142987215 (pos=49)
+rl-secondary-2  | 2025-12-07 21:29:48,727 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:48] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:49,758 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:49] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:49,816 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:50,034 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:51,319 | INFO | Replicated seq=192 msg=ord_1765142989811_1 (pos=50)
+rl-secondary-2  | 2025-12-07 21:29:51,319 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:51] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:51,535 | INFO | Replicated seq=193 msg=ord_1765142989811_2 (pos=51)
+rl-secondary-2  | 2025-12-07 21:29:51,536 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:51] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:51,760 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:51,981 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:52,195 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:53,265 | INFO | Replicated seq=194 msg=ord_1765142989811_3 (pos=52)
+rl-secondary-2  | 2025-12-07 21:29:53,266 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:53] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:53,482 | INFO | Replicated seq=195 msg=ord_1765142989811_4 (pos=53)
+rl-secondary-2  | 2025-12-07 21:29:53,484 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:53] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:53,702 | INFO | Replicated seq=196 msg=ord_1765142989811_5 (pos=54)
+rl-secondary-2  | 2025-12-07 21:29:53,703 | INFO | 172.18.0.4 - - [07/Dec/2025 21:29:53] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:58,933 | INFO | 192.168.65.1 - - [07/Dec/2025 21:29:58] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:29:58,942 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:59,057 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:29:59,170 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:00,448 | INFO | Replicated seq=197 msg=delay_ord_1765142998936_1 (pos=55)
+rl-secondary-2  | 2025-12-07 21:30:00,451 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:00,562 | INFO | Replicated seq=198 msg=delay_ord_1765142998936_2 (pos=56)
+rl-secondary-2  | 2025-12-07 21:30:00,563 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:00,678 | INFO | Replicated seq=199 msg=delay_ord_1765142998936_3 (pos=57)
+rl-secondary-2  | 2025-12-07 21:30:00,679 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:00] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:03,292 | INFO | 192.168.65.1 - - [07/Dec/2025 21:30:03] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:03,302 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:03,520 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:03,732 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:04,808 | INFO | Replicated seq=200 msg=mixed_1765143003295_1 (pos=58)
+rl-secondary-2  | 2025-12-07 21:30:04,809 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:04] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:05,022 | INFO | Replicated seq=201 msg=mixed_1765143003295_2 (pos=59)
+rl-secondary-2  | 2025-12-07 21:30:05,023 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:05] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:05,237 | INFO | Replicated seq=202 msg=mixed_1765143003295_3 (pos=60)
+rl-secondary-2  | 2025-12-07 21:30:05,238 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:05] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:05,462 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:06,966 | INFO | Replicated seq=203 msg=mixed_1765143003295_4 (pos=61)
+rl-secondary-2  | 2025-12-07 21:30:06,966 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:06] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:09,694 | INFO | 192.168.65.1 - - [07/Dec/2025 21:30:09] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:09,704 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:09,828 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:09,940 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:11,206 | INFO | Replicated seq=204 msg=ooo_1765143009698_1 (pos=62)
+rl-secondary-2  | 2025-12-07 21:30:11,207 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:11] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:11,333 | INFO | Replicated seq=205 msg=ooo_1765143009698_2 (pos=63)
+rl-secondary-2  | 2025-12-07 21:30:11,334 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:11] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:11,445 | INFO | Replicated seq=206 msg=ooo_1765143009698_3 (pos=64)
+rl-secondary-2  | 2025-12-07 21:30:11,447 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:11] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:14,068 | INFO | 192.168.65.1 - - [07/Dec/2025 21:30:14] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  |  * Serving Flask app 'app'
+rl-secondary-2  |  * Debug mode: off
+rl-secondary-2  | 2025-12-07 21:30:16,606 | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+rl-secondary-2  |  * Running on all addresses (0.0.0.0)
+rl-secondary-2  |  * Running on http://127.0.0.1:8001
+rl-secondary-2  |  * Running on http://172.18.0.3:8001
+rl-secondary-2  | 2025-12-07 21:30:16,606 | INFO | [33mPress CTRL+C to quit[0m
+rl-secondary-2  | 2025-12-07 21:30:18,571 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,574 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,589 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,591 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,597 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,599 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,600 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,600 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,606 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,607 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,608 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:18,608 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:20,075 | INFO | Replicated seq=208 msg=timing_w1_1765143018561 (pos=0)
+rl-secondary-2  | 2025-12-07 21:30:20,078 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,079 | INFO | Replicated seq=209 msg=timing_w2_1765143018571 (pos=1)
+rl-secondary-2  | 2025-12-07 21:30:20,079 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,090 | INFO | Replicated seq=210 msg=concurrent_1765143018578_1 (pos=2)
+rl-secondary-2  | 2025-12-07 21:30:20,091 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,092 | INFO | Replicated seq=212 msg=concurrent_1765143018578_3 (pos=3)
+rl-secondary-2  | 2025-12-07 21:30:20,092 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,099 | INFO | Replicated seq=211 msg=concurrent_1765143018578_0 (pos=3)
+rl-secondary-2  | 2025-12-07 21:30:20,099 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,099 | INFO | Replicated seq=214 msg=concurrent_1765143018578_6 (pos=5)
+rl-secondary-2  | 2025-12-07 21:30:20,100 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,100 | INFO | Replicated seq=215 msg=concurrent_1765143018578_4 (pos=6)
+rl-secondary-2  | 2025-12-07 21:30:20,100 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,101 | INFO | Replicated seq=213 msg=concurrent_1765143018578_2 (pos=5)
+rl-secondary-2  | 2025-12-07 21:30:20,101 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,107 | INFO | Replicated seq=216 msg=concurrent_1765143018578_5 (pos=8)
+rl-secondary-2  | 2025-12-07 21:30:20,108 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,108 | INFO | Replicated seq=217 msg=concurrent_1765143018578_7 (pos=9)
+rl-secondary-2  | 2025-12-07 21:30:20,108 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,109 | INFO | Replicated seq=218 msg=concurrent_1765143018578_8 (pos=10)
+rl-secondary-2  | 2025-12-07 21:30:20,109 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:20,109 | INFO | Replicated seq=219 msg=concurrent_1765143018578_9 (pos=11)
+rl-secondary-2  | 2025-12-07 21:30:20,109 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:20] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:22,629 | INFO | 192.168.65.1 - - [07/Dec/2025 21:30:22] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:22,853 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:22,858 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:22,863 | INFO | Simulating delay 1500 ms
+rl-secondary-2  | 2025-12-07 21:30:22,868 | INFO | 192.168.65.1 - - [07/Dec/2025 21:30:22] "GET /health HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:22,872 | INFO | 192.168.65.1 - - [07/Dec/2025 21:30:22] "GET /messages HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:24,358 | INFO | Replicated seq=220 msg=w1_test (pos=12)
+rl-secondary-2  | 2025-12-07 21:30:24,359 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:24] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:24,359 | INFO | Replicated seq=221 msg=w2_test (pos=13)
+rl-secondary-2  | 2025-12-07 21:30:24,359 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:24] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:24,365 | INFO | Replicated seq=222 msg=eventual_test_1765143022861 (pos=14)
+rl-secondary-2  | 2025-12-07 21:30:24,365 | INFO | 172.18.0.4 - - [07/Dec/2025 21:30:24] "POST /replicate HTTP/1.1" 200 -
+rl-secondary-2  | 2025-12-07 21:30:25,386 | INFO | 192.168.65.1 - - [07/Dec/2025 21:30:25] "GET /messages HTTP/1.1" 200 -
