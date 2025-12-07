@@ -9,4 +9,17 @@ tests/test_iteration2.py::TestWriteConcern::test_wc01_default_write_concern PASS
 tests/test_iteration2.py::TestWriteConcern::test_wc02_w1_fast PASSED     [  8%]
 tests/test_iteration2.py::TestWriteConcern::test_wc03_w2_one_secondary PASSED [ 12%]
 tests/test_iteration2.py::TestWriteConcern::test_wc04_w3_two_secondaries PASSED [ 16%]
-tests/test_iteration2.py::TestWriteConcern::test_wc05_w_n_all_secondaries 
+tests/test_iteration2.py::TestWriteConcern::test_wc05_w_n_all_secondaries PASSED [ 20%]
+tests/test_iteration2.py::TestWriteConcern::test_wc06_w1_no_acks_waiting PASSED [ 25%]
+tests/test_iteration2.py::TestWriteConcern::test_wc07_w2_exactly_one_ack PASSED [ 29%]
+tests/test_iteration2.py::TestEventualConsistency::test_ev01_inconsistency_window PASSED [ 33%]
+tests/test_iteration2.py::TestEventualConsistency::test_ev02_mixed_write_concerns_align PASSED [ 37%]
+tests/test_iteration2.py::TestEventualConsistency::test_ev03_temporary_different_lists PASSED [ 41%]
+tests/test_iteration2.py::TestEventualConsistency::test_ev04_delayed_secondary_catches_up PASSED [ 45%]
+tests/test_iteration2.py::TestDeduplication::test_ded01_secondary_deduplicates PASSED [ 50%]
+tests/test_iteration2.py::TestDeduplication::test_ded02_direct_replicate_dedup PASSED [ 54%]
+tests/test_iteration2.py::TestDeduplication::test_ded03_multiple_duplicate_attempts PASSED [ 58%]
+tests/test_iteration2.py::TestDeduplication::test_ded04_deduplication_preserves_ordering PASSED [ 62%]
+tests/test_iteration2.py::TestDeduplication::test_ord01_total_ordering PASSED [ 66%]
+tests/test_iteration2.py::TestDeduplication::test_ord02_ordering_with_delays PASSED [ 70%]
+tests/test_iteration2.py::TestDeduplication::test_ord03_ordering_with_mixed_w 
