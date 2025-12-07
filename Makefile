@@ -10,4 +10,7 @@ logs:
 smoke:
 	./scripts/verify.sh
 
+test:
+	./run_all_tests.sh
+
 
