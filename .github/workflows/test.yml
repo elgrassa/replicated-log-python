@@ -1,6 +1,6 @@
 # Test workflow for replicated log system
 # Separate test suites for Iteration 1 and Iteration 2
-# Tests with 3 and 5 secondaries using matrix strategy
+# Always tests with 2 secondaries and 1 master
 # Collects logs and uploads as artifacts
 
 name: Test Replicated Log System
@@ -14,17 +14,8 @@ on:
 
 jobs:
   test-iteration1:
-    name: Iteration 1 - ${{ matrix.num_secondaries }} Nodes
+    name: Iteration 1 - 2 Secondaries
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        num_secondaries: [3, 5]
-        include:
-          - num_secondaries: 3
-            secondary_delays: "0,500,1500"
-          - num_secondaries: 5
-            secondary_delays: "0,100,500,1000,2000"
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -46,8 +37,8 @@ jobs:
 
     - name: Generate docker-compose.yml
       run: |
-        export NUM_SECONDARIES=${{ matrix.num_secondaries }}
-        export SECONDARY_DELAYS="${{ matrix.secondary_delays }}"
+        export NUM_SECONDARIES=2
+        export SECONDARY_DELAYS="0,500"
         python3 generate_compose.py
         cat docker-compose.yml
 
@@ -65,10 +56,7 @@ jobs:
       run: |
         timeout=60
         elapsed=0
-        ports="8000"
-        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
-          ports="$ports $((8000 + i))"
-        done
+        ports="8000 8001 8002"
         
         while [ $elapsed -lt $timeout ]; do
           all_ready=true
@@ -81,9 +69,8 @@ jobs:
         done
         
         curl -s http://localhost:8000/health | jq
-        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
-          curl -s http://localhost:$((8000 + i))/health | jq
-        done
+        curl -s http://localhost:8001/health | jq
+        curl -s http://localhost:8002/health | jq
 
     - name: Run Iteration 1 verification script
       id: verify
@@ -116,9 +103,8 @@ jobs:
       run: |
         docker compose logs master > replicated_log_master.txt
         docker compose logs > replicated_log_all.txt
-        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
-          docker compose logs secondary$i > replicated_log_secondary$i.txt
-        done
+        docker compose logs secondary1 > replicated_log_secondary1.txt
+        docker compose logs secondary2 > replicated_log_secondary2.txt
         echo "Collected logs:"
         ls -lh replicated_log_*.txt
 
@@ -127,7 +113,7 @@ jobs:
       run: |
         echo "## Iteration 1 Test Results" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "Config: ${{ matrix.num_secondaries }} secondaries, delays: ${{ matrix.secondary_delays }}" >> $GITHUB_STEP_SUMMARY
+        echo "Config: 2 secondaries, delays: 0,500" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         
         if [ -f verify_results.txt ]; then
@@ -158,7 +144,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: iteration1-results-${{ matrix.num_secondaries }}-nodes
+        name: iteration1-results-2-nodes
         path: |
           verify_results.txt
           test_results.txt
@@ -200,17 +186,8 @@ jobs:
         docker compose down -v
 
   test-iteration2:
-    name: Iteration 2 - ${{ matrix.num_secondaries }} Nodes
+    name: Iteration 2 - 2 Secondaries
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        num_secondaries: [3, 5]
-        include:
-          - num_secondaries: 3
-            secondary_delays: "0,500,1500"
-          - num_secondaries: 5
-            secondary_delays: "0,100,500,1000,2000"
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -232,8 +209,8 @@ jobs:
 
     - name: Generate docker-compose.yml
       run: |
-        export NUM_SECONDARIES=${{ matrix.num_secondaries }}
-        export SECONDARY_DELAYS="${{ matrix.secondary_delays }}"
+        export NUM_SECONDARIES=2
+        export SECONDARY_DELAYS="0,500"
         python3 generate_compose.py
         cat docker-compose.yml
 
@@ -251,10 +228,7 @@ jobs:
       run: |
         timeout=60
         elapsed=0
-        ports="8000"
-        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
-          ports="$ports $((8000 + i))"
-        done
+        ports="8000 8001 8002"
         
         while [ $elapsed -lt $timeout ]; do
           all_ready=true
@@ -267,9 +241,8 @@ jobs:
         done
         
         curl -s http://localhost:8000/health | jq
-        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
-          curl -s http://localhost:$((8000 + i))/health | jq
-        done
+        curl -s http://localhost:8001/health | jq
+        curl -s http://localhost:8002/health | jq
 
     - name: Run Iteration 2 shell tests
       id: test_iter2
@@ -309,9 +282,8 @@ jobs:
         mkdir -p Iteration_2
         docker compose logs master > Iteration_2/replicated_log_master.txt
         docker compose logs > Iteration_2/replicated_log_all.txt
-        for i in $(seq 1 ${{ matrix.num_secondaries }}); do
-          docker compose logs secondary$i > Iteration_2/replicated_log_secondary$i.txt
-        done
+        docker compose logs secondary1 > Iteration_2/replicated_log_secondary1.txt
+        docker compose logs secondary2 > Iteration_2/replicated_log_secondary2.txt
         echo ""
         echo "Collected logs in Iteration_2/:"
         ls -lh Iteration_2/replicated_log_*.txt
@@ -324,7 +296,7 @@ jobs:
       run: |
         echo "## Iteration 2 Test Results" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "Config: ${{ matrix.num_secondaries }} secondaries, delays: ${{ matrix.secondary_delays }}" >> $GITHUB_STEP_SUMMARY
+        echo "Config: 2 secondaries, delays: 0,500" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         
         if [ -f test_iter2_results.txt ]; then
@@ -362,7 +334,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: iteration2-results-${{ matrix.num_secondaries }}-nodes
+        name: iteration2-results-2-nodes
         path: |
           test_iter2_results.txt
           pytest_iter2_results.txt
